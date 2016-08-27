@@ -72,8 +72,6 @@ namespace Se7enQ.Core
                 uow.UserRepository.Insert(user);
                 uow.Save();
 
-                user = uow.UserRepository.Find(u => u.Id == user.Id, includeProperties: "Role,UserPatrols").FirstOrDefault();
-
                 return user;
             }
         }

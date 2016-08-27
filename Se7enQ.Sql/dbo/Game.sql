@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Game]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL IDENTITY (1, 1) PRIMARY KEY, 
     [FirstPlayerId] INT NOT NULL, 
     [SecondPlayerId] INT NOT NULL, 
     [FirstPlayerPoints] NUMERIC NOT NULL, 

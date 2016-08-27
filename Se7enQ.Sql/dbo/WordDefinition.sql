@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[WordDefinition]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL IDENTITY (1, 1) PRIMARY KEY, 
     [CorrectAnswer] NVARCHAR(MAX) NOT NULL, 
     [WrongAnswer1] NVARCHAR(MAX) NOT NULL, 
     [WrongAnswer2] NVARCHAR(MAX) NOT NULL, 

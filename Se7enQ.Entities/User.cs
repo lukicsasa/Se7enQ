@@ -24,7 +24,6 @@ namespace Se7enQ.Entities
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public System.DateTime DataCreated { get; set; }
         public string ImageUrl { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
