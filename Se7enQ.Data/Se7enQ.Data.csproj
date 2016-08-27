@@ -49,8 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repository\GameRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CalculationRepository.cs" />
+    <Compile Include="Repository\GeneralKnowledgeRepository.cs" />
+    <Compile Include="Repository\LogicArrayRepository.cs" />
+    <Compile Include="Repository\MemoryRepository.cs" />
+    <Compile Include="Repository\ProjectionRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Repository\WordDefinitionRepository.cs" />
+    <Compile Include="Repository\WordSynonymsRepository.cs" />
     <Compile Include="UnitOfWork\GenericRepository.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
