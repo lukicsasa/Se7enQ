@@ -184,8 +184,9 @@
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\TokenAuthorizeAttribute.cs" />
     <Compile Include="Helpers\ValidateModelAttribute.cs" />
+    <Compile Include="Models\User\LoginModel.cs" />
     <Compile Include="Models\UserJwtModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\User\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

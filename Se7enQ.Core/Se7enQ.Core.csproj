@@ -44,6 +44,10 @@
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Se7enQ.Common\Se7enQ.Common.csproj">
+      <Project>{7BD9CBDC-3818-4D99-9C7A-94974937479A}</Project>
+      <Name>Se7enQ.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Se7enQ.Data\Se7enQ.Data.csproj">
       <Project>{59ed1a5b-e77a-46b5-a996-818f802b47ec}</Project>
       <Name>Se7enQ.Data</Name>

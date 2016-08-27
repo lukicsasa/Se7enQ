@@ -80,7 +80,7 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DataCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar(max)" />
           <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
@@ -163,7 +163,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DataCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -171,6 +170,7 @@
           <Property Name="Playing" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
           <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityContainer Name="Se7enQEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -316,11 +316,11 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Se7enQModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Playing" ColumnName="Playing" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="DataCreated" ColumnName="DataCreated" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

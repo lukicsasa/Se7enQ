@@ -43,6 +43,9 @@
     <Compile Include="Calcuation.cs">
       <DependentUpon>Se7enQ.tt</DependentUpon>
     </Compile>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs">
       <DependentUpon>Se7enQ.tt</DependentUpon>
     </Compile>

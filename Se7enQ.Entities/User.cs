@@ -30,6 +30,7 @@ namespace Se7enQ.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool Playing { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Game> Games { get; set; }

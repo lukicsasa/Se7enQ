@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Se7enQ.API.Models
+namespace Se7enQ.API.Models.User
 {
-    public class UserModel
+    public class LoginModel
     {
-        public int Id { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
