@@ -27,5 +27,14 @@ namespace Se7enQ.Data.Model
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
+        public virtual DbSet<Calcuation> Calcuations { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<GeneralKnowledge> GeneralKnowledges { get; set; }
+        public virtual DbSet<LogicArray> LogicArrays { get; set; }
+        public virtual DbSet<Memory> Memories { get; set; }
+        public virtual DbSet<Projection> Projections { get; set; }
+        public virtual DbSet<WordDefinition> WordDefinitions { get; set; }
+        public virtual DbSet<WordSynonym> WordSynonyms { get; set; }
     }
 }

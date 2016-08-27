@@ -5,6 +5,74 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Se7enQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calcuations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Expression" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectResult" Type="int" Nullable="false" />
+          <Property Name="WrongResult1" Type="int" Nullable="false" />
+          <Property Name="WrongResult2" Type="int" Nullable="false" />
+          <Property Name="WrongResult3" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstPlayerId" Type="int" Nullable="false" />
+          <Property Name="SecondPlayerId" Type="int" Nullable="false" />
+          <Property Name="FirstPlayerPoints" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SecondPlayerPoints" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DatePlayed" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneralKnowledge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer3" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogicArray">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Array" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectNumber" Type="int" Nullable="false" />
+          <Property Name="WrongNumber1" Type="int" Nullable="false" />
+          <Property Name="WrongNumber2" Type="int" Nullable="false" />
+          <Property Name="WrongNumber3" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Memory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CardImage" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projections">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="3DImage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectProjection" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongProjection1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongProjection2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongProjection3" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,8 +87,70 @@
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Playing" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="WordDefinition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer3" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Word" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WordSynonyms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CorrectAnswer1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CorrectAnswer2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer1" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WrongAnswer2" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Game_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="FirstPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_User2">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="SecondPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Se7enQModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calcuations" EntityType="Self.Calcuations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralKnowledge" EntityType="Self.GeneralKnowledge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogicArray" EntityType="Self.LogicArray" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Memory" EntityType="Self.Memory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projections" EntityType="Self.Projections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WordDefinition" EntityType="Self.WordDefinition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WordSynonyms" EntityType="Self.WordSynonyms" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Game_User1" Association="Self.FK_Game_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_User2" Association="Self.FK_Game_User2">
+            <End Role="User" EntitySet="User" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -39,10 +169,144 @@
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Playing" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
         </EntityType>
         <EntityContainer Name="Se7enQEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="C__RefactorLog" EntityType="Se7enQModel.C__RefactorLog" />
+          <EntitySet Name="Calcuations" EntityType="Se7enQModel.Calcuation" />
+          <EntitySet Name="Games" EntityType="Se7enQModel.Game" />
+          <EntitySet Name="GeneralKnowledges" EntityType="Se7enQModel.GeneralKnowledge" />
+          <EntitySet Name="LogicArrays" EntityType="Se7enQModel.LogicArray" />
+          <EntitySet Name="Memories" EntityType="Se7enQModel.Memory" />
+          <EntitySet Name="Projections" EntityType="Se7enQModel.Projection" />
+          <EntitySet Name="WordDefinitions" EntityType="Se7enQModel.WordDefinition" />
+          <EntitySet Name="WordSynonyms" EntityType="Se7enQModel.WordSynonym" />
+          <AssociationSet Name="FK_Game_User1" Association="Se7enQModel.FK_Game_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_User2" Association="Se7enQModel.FK_Game_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calcuation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Expression" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectResult" Type="Int32" Nullable="false" />
+          <Property Name="WrongResult1" Type="Int32" Nullable="false" />
+          <Property Name="WrongResult2" Type="Int32" Nullable="false" />
+          <Property Name="WrongResult3" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstPlayerId" Type="Int32" Nullable="false" />
+          <Property Name="SecondPlayerId" Type="Int32" Nullable="false" />
+          <Property Name="FirstPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SecondPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DatePlayed" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Se7enQModel.FK_Game_User1" FromRole="Game" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Se7enQModel.FK_Game_User2" FromRole="Game" ToRole="User" />
+        </EntityType>
+        <EntityType Name="GeneralKnowledge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LogicArray">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Array" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectNumber" Type="Int32" Nullable="false" />
+          <Property Name="WrongNumber1" Type="Int32" Nullable="false" />
+          <Property Name="WrongNumber2" Type="Int32" Nullable="false" />
+          <Property Name="WrongNumber3" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Memory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CardImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Projection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="C3DImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectProjection" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongProjection1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongProjection2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongProjection3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WordDefinition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CorrectAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Word" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WordSynonym">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CorrectAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Game_User1">
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="FirstPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_User2">
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="SecondPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -61,6 +325,104 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="Se7enQModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calcuations">
+            <EntityTypeMapping TypeName="Se7enQModel.Calcuation">
+              <MappingFragment StoreEntitySet="Calcuations">
+                <ScalarProperty Name="WrongResult3" ColumnName="WrongResult3" />
+                <ScalarProperty Name="WrongResult2" ColumnName="WrongResult2" />
+                <ScalarProperty Name="WrongResult1" ColumnName="WrongResult1" />
+                <ScalarProperty Name="CorrectResult" ColumnName="CorrectResult" />
+                <ScalarProperty Name="Expression" ColumnName="Expression" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="Se7enQModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
+                <ScalarProperty Name="SecondPlayerPoints" ColumnName="SecondPlayerPoints" />
+                <ScalarProperty Name="FirstPlayerPoints" ColumnName="FirstPlayerPoints" />
+                <ScalarProperty Name="SecondPlayerId" ColumnName="SecondPlayerId" />
+                <ScalarProperty Name="FirstPlayerId" ColumnName="FirstPlayerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralKnowledges">
+            <EntityTypeMapping TypeName="Se7enQModel.GeneralKnowledge">
+              <MappingFragment StoreEntitySet="GeneralKnowledge">
+                <ScalarProperty Name="WrongAnswer3" ColumnName="WrongAnswer3" />
+                <ScalarProperty Name="WrongAnswer2" ColumnName="WrongAnswer2" />
+                <ScalarProperty Name="WrongAnswer1" ColumnName="WrongAnswer1" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogicArrays">
+            <EntityTypeMapping TypeName="Se7enQModel.LogicArray">
+              <MappingFragment StoreEntitySet="LogicArray">
+                <ScalarProperty Name="WrongNumber3" ColumnName="WrongNumber3" />
+                <ScalarProperty Name="WrongNumber2" ColumnName="WrongNumber2" />
+                <ScalarProperty Name="WrongNumber1" ColumnName="WrongNumber1" />
+                <ScalarProperty Name="CorrectNumber" ColumnName="CorrectNumber" />
+                <ScalarProperty Name="Array" ColumnName="Array" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memories">
+            <EntityTypeMapping TypeName="Se7enQModel.Memory">
+              <MappingFragment StoreEntitySet="Memory">
+                <ScalarProperty Name="CardImage" ColumnName="CardImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projections">
+            <EntityTypeMapping TypeName="Se7enQModel.Projection">
+              <MappingFragment StoreEntitySet="Projections">
+                <ScalarProperty Name="WrongProjection3" ColumnName="WrongProjection3" />
+                <ScalarProperty Name="WrongProjection2" ColumnName="WrongProjection2" />
+                <ScalarProperty Name="WrongProjection1" ColumnName="WrongProjection1" />
+                <ScalarProperty Name="CorrectProjection" ColumnName="CorrectProjection" />
+                <ScalarProperty Name="C3DImage" ColumnName="3DImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WordDefinitions">
+            <EntityTypeMapping TypeName="Se7enQModel.WordDefinition">
+              <MappingFragment StoreEntitySet="WordDefinition">
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="WrongAnswer3" ColumnName="WrongAnswer3" />
+                <ScalarProperty Name="WrongAnswer2" ColumnName="WrongAnswer2" />
+                <ScalarProperty Name="WrongAnswer1" ColumnName="WrongAnswer1" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WordSynonyms">
+            <EntityTypeMapping TypeName="Se7enQModel.WordSynonym">
+              <MappingFragment StoreEntitySet="WordSynonyms">
+                <ScalarProperty Name="WrongAnswer2" ColumnName="WrongAnswer2" />
+                <ScalarProperty Name="WrongAnswer1" ColumnName="WrongAnswer1" />
+                <ScalarProperty Name="CorrectAnswer2" ColumnName="CorrectAnswer2" />
+                <ScalarProperty Name="CorrectAnswer1" ColumnName="CorrectAnswer1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -57,11 +57,23 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="User.sql" />
+    <Build Include="dbo\User.sql" />
+    <Build Include="dbo\WordDefinition.sql" />
+    <Build Include="dbo\WordSynonyms.sql" />
+    <Build Include="dbo\Projections.sql" />
+    <Build Include="dbo\Memory.sql" />
+    <Build Include="dbo\LogicArray.sql" />
+    <Build Include="dbo\Calcuations.sql" />
+    <Build Include="dbo\GeneralKnowledge.sql" />
+    <Build Include="dbo\Game.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Se7enQ.Sql.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Se7enQ.Sql.publish.xml" />
   </ItemGroup>
 </Project>

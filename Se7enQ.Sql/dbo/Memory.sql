@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Memory]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [CardImage] NVARCHAR(MAX) NOT NULL
+)

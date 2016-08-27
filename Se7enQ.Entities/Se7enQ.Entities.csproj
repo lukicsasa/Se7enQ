@@ -40,6 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calcuation.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Game.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralKnowledge.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogicArray.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Memory.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Projection.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Se7enQ.cs">
       <DependentUpon>Se7enQ.tt</DependentUpon>
@@ -47,6 +68,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WordDefinition.cs">
+      <DependentUpon>Se7enQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WordSynonym.cs">
       <DependentUpon>Se7enQ.tt</DependentUpon>
     </Compile>
   </ItemGroup>

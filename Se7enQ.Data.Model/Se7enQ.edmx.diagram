@@ -6,6 +6,17 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d4b63138273d4db5bae8997aa93a22cd" Name="Diagram1">
         <EntityTypeShape EntityType="Se7enQModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Se7enQModel.C__RefactorLog" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Se7enQModel.Calcuation" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Se7enQModel.Game" Width="1.5" PointX="3.375" PointY="1" />
+        <EntityTypeShape EntityType="Se7enQModel.GeneralKnowledge" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Se7enQModel.LogicArray" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Se7enQModel.Memory" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Se7enQModel.Projection" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Se7enQModel.WordDefinition" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Se7enQModel.WordSynonym" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="Se7enQModel.FK_Game_User1" />
+        <AssociationConnector Association="Se7enQModel.FK_Game_User2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
