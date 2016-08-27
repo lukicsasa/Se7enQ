@@ -17,7 +17,7 @@ namespace Se7enQ.API.Controllers
         [TokenAuthorize]
         public UserModel GetUserById(int userId)
         {
-            return Mapper.AutoMap<User, UserModel>(UserManager.GetUserById(userId));
+            return Mapper.Map(UserManager.GetUserById(userId));
         }
 
         [AllowAnonymous]
