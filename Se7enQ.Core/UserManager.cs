@@ -39,7 +39,7 @@ namespace Se7enQ.Core
             }
         }
 
-        public User Register(string username, string password,string firstName,string lastName, string email, string imageUrl)
+        public User Register(string username, string password,string firstName,string lastName, string email)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -65,8 +65,7 @@ namespace Se7enQ.Core
                     Email = email,
                     FirstName = firstName,
                     LastName = lastName,
-                    Playing = false,
-                    ImageUrl = imageUrl
+                    Playing = false
                 };
 
                 uow.UserRepository.Insert(user);

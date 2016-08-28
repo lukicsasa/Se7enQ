@@ -33,7 +33,7 @@ namespace Se7enQ.API.Controllers
         [HttpPost]
         public UserModel Register(UserModel model)
         {
-            User user = UserManager.Register(model.Username, model.Password,model.FirstName,model.LastName,model.Email, model.ImageUrl);
+            User user = UserManager.Register(model.Username, model.Password,model.FirstName,model.LastName,model.Email);
             UserModel userModel = Mapper.Map(user);
             return userModel;
         }
