@@ -76,4 +76,7 @@
   <ItemGroup>
     <None Include="Se7enQ.Sql.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Se7enQPostDeployment.sql" />
+  </ItemGroup>
 </Project>
