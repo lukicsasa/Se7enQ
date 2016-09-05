@@ -11,15 +11,24 @@ namespace Se7enQ.API.Controllers
 {
     public class BaseController : ApiController
     {
-            internal UserJwtModel CurrentUser { get; set; }
+        internal UserJwtModel CurrentUser { get; set; }
 
-            private UserManager userManager;
-            public UserManager UserManager
+        private UserManager userManager;
+        public UserManager UserManager
+        {
+            get
             {
-                get
-                {
-                    return userManager ?? (userManager = new UserManager());
-                }
+                return userManager ?? (userManager = new UserManager());
             }
         }
+
+        private TrainingManager trainingManager;
+        public TrainingManager TrainingManager
+        {
+            get
+            {
+                return trainingManager ?? (trainingManager = new TrainingManager());
+            }
+        }
+    }
 }

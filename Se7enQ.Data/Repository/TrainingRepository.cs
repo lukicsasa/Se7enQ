@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Se7enQ.Data.Repository
 {
-    public class CalculationRepository : GenericRepository<Calculation>
+    public class TrainingRepository : GenericRepository<Training>
     {
-        public CalculationRepository(DbContext dbContext) : base(dbContext) { }
+        public TrainingRepository(DbContext dbContext) : base(dbContext) { }
 
     }
 }

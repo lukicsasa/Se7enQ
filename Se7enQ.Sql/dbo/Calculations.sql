@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Calcuations]
+﻿CREATE TABLE [dbo].[Calculations]
 (
 	[Id] INT NOT NULL IDENTITY (1, 1) PRIMARY KEY, 
     [Expression] NVARCHAR(MAX) NOT NULL, 
