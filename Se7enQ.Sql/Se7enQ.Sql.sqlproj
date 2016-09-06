@@ -74,9 +74,9 @@
     <RefactorLog Include="Se7enQ.Sql.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Se7enQ.Sql.publish.xml" />
+    <PostDeploy Include="Se7enQPostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Se7enQPostDeployment.sql" />
+    <None Include="Se7enQ.Sql.publish.xml" />
   </ItemGroup>
 </Project>
