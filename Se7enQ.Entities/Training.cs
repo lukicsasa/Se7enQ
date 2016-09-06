@@ -12,8 +12,17 @@ namespace Se7enQ.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class C__RefactorLog
+    public partial class Training
     {
-        public System.Guid OperationKey { get; set; }
+        public int UserId { get; set; }
+        public bool Calculations { get; set; }
+        public bool GeneralKnowledge { get; set; }
+        public bool LogicArray { get; set; }
+        public bool Memory { get; set; }
+        public bool Projections { get; set; }
+        public bool WordDefinition { get; set; }
+        public bool WordSynonyms { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

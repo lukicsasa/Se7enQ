@@ -39,7 +39,7 @@ namespace Se7enQ.Core
             }
         }
 
-        public User Register(string username, string password,string firstName,string lastName, string email)
+        public User Register(string username, string password, string firstName, string lastName, string email)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -67,11 +67,26 @@ namespace Se7enQ.Core
                     LastName = lastName,
                     Playing = false
                 };
-
+                
                 uow.UserRepository.Insert(user);
+
                 uow.Save();
 
+                InsertIntoTraining(username);
+
                 return user;
+            }
+        }
+
+        private void InsertIntoTraining(string username)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                int userId = uow.UserRepository.Find(a => a.Username == username).FirstOrDefault().Id;
+
+                uow.TrainingRepository.Insert(new Training { UserId = userId });
+
+                uow.Save();
             }
         }
     }

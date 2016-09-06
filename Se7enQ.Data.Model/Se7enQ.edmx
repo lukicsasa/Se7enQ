@@ -5,13 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Se7enQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Calcuations">
+        <EntityType Name="Calculations">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -73,6 +67,19 @@
           <Property Name="WrongProjection2" Type="nvarchar(max)" Nullable="false" />
           <Property Name="WrongProjection3" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Calculations" Type="bit" Nullable="false" />
+          <Property Name="GeneralKnowledge" Type="bit" Nullable="false" />
+          <Property Name="LogicArray" Type="bit" Nullable="false" />
+          <Property Name="Memory" Type="bit" Nullable="false" />
+          <Property Name="Projections" Type="bit" Nullable="false" />
+          <Property Name="WordDefinition" Type="bit" Nullable="false" />
+          <Property Name="WordSynonyms" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -132,14 +139,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Training_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Training" Type="Self.Training" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Training">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Se7enQModelStoreContainer">
-          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Calcuations" EntityType="Self.Calcuations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calculations" EntityType="Self.Calculations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralKnowledge" EntityType="Self.GeneralKnowledge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogicArray" EntityType="Self.LogicArray" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Memory" EntityType="Self.Memory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projections" EntityType="Self.Projections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WordDefinition" EntityType="Self.WordDefinition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WordSynonyms" EntityType="Self.WordSynonyms" Schema="dbo" store:Type="Tables" />
@@ -151,36 +170,24 @@
             <End Role="User" EntitySet="User" />
             <End Role="Game" EntitySet="Game" />
           </AssociationSet>
+          <AssociationSet Name="FK_Training_User" Association="Self.FK_Training_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Training" EntitySet="Training" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Se7enQModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Playing" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
-          <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityContainer Name="Se7enQEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="C__RefactorLog" EntityType="Se7enQModel.C__RefactorLog" />
-          <EntitySet Name="Calcuations" EntityType="Se7enQModel.Calcuation" />
+          <EntitySet Name="Calculations" EntityType="Se7enQModel.Calculation" />
           <EntitySet Name="Games" EntityType="Se7enQModel.Game" />
           <EntitySet Name="GeneralKnowledges" EntityType="Se7enQModel.GeneralKnowledge" />
           <EntitySet Name="LogicArrays" EntityType="Se7enQModel.LogicArray" />
           <EntitySet Name="Memories" EntityType="Se7enQModel.Memory" />
           <EntitySet Name="Projections" EntityType="Se7enQModel.Projection" />
+          <EntitySet Name="Trainings" EntityType="Se7enQModel.Training" />
+          <EntitySet Name="Users" EntityType="Se7enQModel.User" />
           <EntitySet Name="WordDefinitions" EntityType="Se7enQModel.WordDefinition" />
           <EntitySet Name="WordSynonyms" EntityType="Se7enQModel.WordSynonym" />
           <AssociationSet Name="FK_Game_User1" Association="Se7enQModel.FK_Game_User1">
@@ -191,18 +198,16 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Game" EntitySet="Games" />
           </AssociationSet>
+          <AssociationSet Name="FK_Training_User" Association="Se7enQModel.FK_Training_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Training" EntitySet="Trainings" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="C__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Calcuation">
+        <EntityType Name="Calculation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Expression" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CorrectResult" Type="Int32" Nullable="false" />
           <Property Name="WrongResult1" Type="Int32" Nullable="false" />
@@ -213,7 +218,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstPlayerId" Type="Int32" Nullable="false" />
           <Property Name="SecondPlayerId" Type="Int32" Nullable="false" />
           <Property Name="FirstPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
@@ -226,7 +231,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CorrectAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -237,7 +242,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Array" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CorrectNumber" Type="Int32" Nullable="false" />
           <Property Name="WrongNumber1" Type="Int32" Nullable="false" />
@@ -248,25 +253,56 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CardImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Projection">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="C3DImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CorrectProjection" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongProjection1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongProjection2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongProjection3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Calculations" Type="Boolean" Nullable="false" />
+          <Property Name="GeneralKnowledge" Type="Boolean" Nullable="false" />
+          <Property Name="LogicArray" Type="Boolean" Nullable="false" />
+          <Property Name="Memory" Type="Boolean" Nullable="false" />
+          <Property Name="Projections" Type="Boolean" Nullable="false" />
+          <Property Name="WordDefinition" Type="Boolean" Nullable="false" />
+          <Property Name="WordSynonyms" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Se7enQModel.FK_Training_User" FromRole="Training" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Playing" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
+          <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
+          <NavigationProperty Name="Training" Relationship="Se7enQModel.FK_Training_User" FromRole="User" ToRole="Training" />
+        </EntityType>
         <EntityType Name="WordDefinition">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CorrectAnswer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -277,7 +313,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CorrectAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CorrectAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -307,37 +343,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Training_User">
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
+          <End Type="Se7enQModel.Training" Role="Training" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Training">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Se7enQModelStoreContainer" CdmEntityContainer="Se7enQEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="Se7enQModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="Playing" ColumnName="Playing" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C__RefactorLog">
-            <EntityTypeMapping TypeName="Se7enQModel.C__RefactorLog">
-              <MappingFragment StoreEntitySet="__RefactorLog">
-                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Calcuations">
-            <EntityTypeMapping TypeName="Se7enQModel.Calcuation">
-              <MappingFragment StoreEntitySet="Calcuations">
+          <EntitySetMapping Name="Calculations">
+            <EntityTypeMapping TypeName="Se7enQModel.Calculation">
+              <MappingFragment StoreEntitySet="Calculations">
                 <ScalarProperty Name="WrongResult3" ColumnName="WrongResult3" />
                 <ScalarProperty Name="WrongResult2" ColumnName="WrongResult2" />
                 <ScalarProperty Name="WrongResult1" ColumnName="WrongResult1" />
@@ -399,6 +425,35 @@
                 <ScalarProperty Name="WrongProjection1" ColumnName="WrongProjection1" />
                 <ScalarProperty Name="CorrectProjection" ColumnName="CorrectProjection" />
                 <ScalarProperty Name="C3DImage" ColumnName="3DImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainings">
+            <EntityTypeMapping TypeName="Se7enQModel.Training">
+              <MappingFragment StoreEntitySet="Training">
+                <ScalarProperty Name="WordSynonyms" ColumnName="WordSynonyms" />
+                <ScalarProperty Name="WordDefinition" ColumnName="WordDefinition" />
+                <ScalarProperty Name="Projections" ColumnName="Projections" />
+                <ScalarProperty Name="Memory" ColumnName="Memory" />
+                <ScalarProperty Name="LogicArray" ColumnName="LogicArray" />
+                <ScalarProperty Name="GeneralKnowledge" ColumnName="GeneralKnowledge" />
+                <ScalarProperty Name="Calculations" ColumnName="Calculations" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Se7enQModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Playing" ColumnName="Playing" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

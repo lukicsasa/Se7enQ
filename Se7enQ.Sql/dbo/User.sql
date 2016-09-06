@@ -8,5 +8,5 @@
     [FirstName] NVARCHAR(MAX) NOT NULL, 
     [LastName] NVARCHAR(MAX) NOT NULL, 
     [Email] NVARCHAR(MAX) NOT NULL, 
-    [Playing] BIT NOT NULL
+    [Playing] BIT NOT NULL DEFAULT 0 
 )

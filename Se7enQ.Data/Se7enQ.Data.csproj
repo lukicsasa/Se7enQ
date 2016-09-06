@@ -56,6 +56,7 @@
     <Compile Include="Repository\LogicArrayRepository.cs" />
     <Compile Include="Repository\MemoryRepository.cs" />
     <Compile Include="Repository\ProjectionRepository.cs" />
+    <Compile Include="Repository\TrainingRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\WordDefinitionRepository.cs" />
     <Compile Include="Repository\WordSynonymsRepository.cs" />

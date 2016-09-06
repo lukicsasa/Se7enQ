@@ -27,6 +27,7 @@ namespace Se7enQ.Data.UnitOfWork
         private ProjectionRepository projectionRepository;
         private WordDefinitionRepository wordDefinitionRepository;
         private WordSynonymsRepository wordSynonymsRepository;
+        private TrainingRepository trainingRepository;
 
         #endregion Fields
 
@@ -115,6 +116,14 @@ namespace Se7enQ.Data.UnitOfWork
             get
             {
                 return wordSynonymsRepository ?? (wordSynonymsRepository = new WordSynonymsRepository(DataContext));
+            }
+        }
+
+        public TrainingRepository TrainingRepository
+        {
+            get
+            {
+                return trainingRepository ?? (trainingRepository = new TrainingRepository(DataContext));
             }
         }
 
