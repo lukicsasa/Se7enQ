@@ -17,7 +17,7 @@ namespace Se7enQ.Core
             {
                 User currentUser = uow.UserRepository.GetById(currentUserId);
 
-                while(true)
+                while (true)
                 {
                     var game = uow.GameRepository.Find(a => a.SecondPlayerId == null).FirstOrDefault();
                     if (game != null)
@@ -36,12 +36,12 @@ namespace Se7enQ.Core
                             DatePlayed = DateTime.UtcNow
                         });
                         uow.Save();
-                        while(true)
+                        while (true)
                         {
-                            var player2Id = uow.GameRepository.Find(a => a.FirstPlayerId == currentUserId && a.SecondPlayerId != null).FirstOrDefault()?.SecondPlayerId;
-                            if(player2Id != null)
+                            var secondPlayer = GetSecondPlayer(currentUserId);
+                            if(secondPlayer != null)
                             {
-                                return uow.UserRepository.Find(a => a.Id == player2Id.Value).FirstOrDefault();
+                                return secondPlayer;
                             }
 
                         }
@@ -50,37 +50,47 @@ namespace Se7enQ.Core
             }
         }
 
+        private User GetSecondPlayer(int firstPlayerId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var player2Id = uow.GameRepository.Find(a => a.FirstPlayerId == firstPlayerId && a.SecondPlayerId != null).FirstOrDefault()?.SecondPlayerId;
+
+                return uow.UserRepository.Find(a => a.Id == player2Id.Value).FirstOrDefault();
+            }
+        }
+
         private GameQuestion GenerateQuestions()
         {
-                List<WordSynonym> synonyms = GetWordSynonyms();
-                List<WordDefinition> definitions = GetWordDefinitions();
-                List<LogicArray> logicArrays = GetLogicArrays();
-                List<Calculation> calculations = GetCalculations();
-                List<GeneralKnowledge> generalKnowledge = GetGeneralKnowledge();
+            List<WordSynonym> synonyms = GetWordSynonyms();
+            List<WordDefinition> definitions = GetWordDefinitions();
+            List<LogicArray> logicArrays = GetLogicArrays();
+            List<Calculation> calculations = GetCalculations();
+            List<GeneralKnowledge> generalKnowledge = GetGeneralKnowledge();
 
-                GameQuestion questions = new GameQuestion
-                {
-                    WordSynonyms1 = synonyms[0].Id,
-                    WordSynonyms2 = synonyms[1].Id,
-                    WordSynonyms3 = synonyms[2].Id,
-                    WordSynonyms4 = synonyms[3].Id,
-                    WordDefinitions1 = definitions[0].Id,
-                    WordDefinitions2 = definitions[1].Id,
-                    WordDefinitions3 = definitions[2].Id,
-                    WordDefinitions4 = definitions[3].Id,
-                    LogicArray1 = logicArrays[0].Id,
-                    LogicArray2 = logicArrays[1].Id,
-                    LogicArray3 = logicArrays[2].Id,
-                    LogicArray4 = logicArrays[3].Id,
-                    Calculations1 = calculations[0].Id,
-                    Calculations2 = calculations[1].Id,
-                    Calculations3 = calculations[2].Id,
-                    Calculations4 = calculations[3].Id,
-                    GeneralKnowledge1 = generalKnowledge[0].Id,
-                    GeneralKnowledge2 = generalKnowledge[1].Id,
-                    GeneralKnowledge3 = generalKnowledge[2].Id,
-                    GeneralKnowledge4 = generalKnowledge[3].Id
-                };
+            GameQuestion questions = new GameQuestion
+            {
+                WordSynonyms1 = synonyms[0].Id,
+                WordSynonyms2 = synonyms[1].Id,
+                WordSynonyms3 = synonyms[2].Id,
+                WordSynonyms4 = synonyms[3].Id,
+                WordDefinitions1 = definitions[0].Id,
+                WordDefinitions2 = definitions[1].Id,
+                WordDefinitions3 = definitions[2].Id,
+                WordDefinitions4 = definitions[3].Id,
+                LogicArray1 = logicArrays[0].Id,
+                LogicArray2 = logicArrays[1].Id,
+                LogicArray3 = logicArrays[2].Id,
+                LogicArray4 = logicArrays[3].Id,
+                Calculations1 = calculations[0].Id,
+                Calculations2 = calculations[1].Id,
+                Calculations3 = calculations[2].Id,
+                Calculations4 = calculations[3].Id,
+                GeneralKnowledge1 = generalKnowledge[0].Id,
+                GeneralKnowledge2 = generalKnowledge[1].Id,
+                GeneralKnowledge3 = generalKnowledge[2].Id,
+                GeneralKnowledge4 = generalKnowledge[3].Id
+            };
             return questions;
         }
 
