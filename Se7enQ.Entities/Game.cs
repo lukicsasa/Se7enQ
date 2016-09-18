@@ -21,6 +21,8 @@ namespace Se7enQ.Entities
         public decimal SecondPlayerPoints { get; set; }
         public System.DateTime DatePlayed { get; set; }
         public Nullable<int> GameQuestions { get; set; }
+        public string FirstPlayerAnswer { get; set; }
+        public string SecondPlayerAnswer { get; set; }
     
         public virtual GameQuestion GameQuestion { get; set; }
         public virtual User User { get; set; }

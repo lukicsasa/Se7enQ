@@ -11,7 +11,7 @@ namespace Se7enQ.API.Controllers
 {
     public class GameController : BaseController
     {
-        [HttpGet]
+        [HttpPost]
         [TokenAuthorize]
         public UserModel FindOpponent()
         {

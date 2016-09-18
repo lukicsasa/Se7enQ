@@ -5,12 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Se7enQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
         <EntityType Name="Calculations">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +27,8 @@
           <Property Name="SecondPlayerPoints" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="DatePlayed" Type="datetime" Nullable="false" />
           <Property Name="GameQuestions" Type="int" />
+          <Property Name="FirstPlayerAnswer" Type="nchar" MaxLength="100" />
+          <Property Name="SecondPlayerAnswer" Type="nchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="GameQuestions">
           <Key>
@@ -436,7 +432,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Se7enQModelStoreContainer">
-          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calculations" EntityType="Self.Calculations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GameQuestions" EntityType="Self.GameQuestions" Schema="dbo" store:Type="Tables" />
@@ -550,9 +545,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Se7enQModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Se7enQEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__RefactorLog" EntityType="Se7enQModel.C__RefactorLog" />
           <EntitySet Name="Calculations" EntityType="Se7enQModel.Calculation" />
-          <EntitySet Name="Games" EntityType="Se7enQModel.Game" />
           <EntitySet Name="GameQuestions" EntityType="Se7enQModel.GameQuestion" />
           <EntitySet Name="GeneralKnowledges" EntityType="Se7enQModel.GeneralKnowledge" />
           <EntitySet Name="LogicArrays" EntityType="Se7enQModel.LogicArray" />
@@ -577,18 +570,6 @@
           <AssociationSet Name="FK_Calculations4_Questions" Association="Se7enQModel.FK_Calculations4_Questions">
             <End Role="Calculation" EntitySet="Calculations" />
             <End Role="GameQuestion" EntitySet="GameQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Game_Questions" Association="Se7enQModel.FK_Game_Questions">
-            <End Role="GameQuestion" EntitySet="GameQuestions" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Game_User1" Association="Se7enQModel.FK_Game_User1">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Game" EntitySet="Games" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Game_User2" Association="Se7enQModel.FK_Game_User2">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Game" EntitySet="Games" />
           </AssociationSet>
           <AssociationSet Name="FK_Definitions1_Questions" Association="Se7enQModel.FK_Definitions1_Questions">
             <End Role="WordDefinition" EntitySet="WordDefinitions" />
@@ -658,13 +639,20 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Training" EntitySet="Trainings" />
           </AssociationSet>
+          <EntitySet Name="Games" EntityType="Se7enQModel.Game" />
+          <AssociationSet Name="FK_Game_Questions" Association="Se7enQModel.FK_Game_Questions">
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_User1" Association="Se7enQModel.FK_Game_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_User2" Association="Se7enQModel.FK_Game_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="C__RefactorLog">
-          <Key>
-            <PropertyRef Name="OperationKey" />
-          </Key>
-          <Property Name="OperationKey" Type="Guid" Nullable="false" />
-        </EntityType>
         <EntityType Name="Calculation">
           <Key>
             <PropertyRef Name="Id" />
@@ -679,21 +667,6 @@
           <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_Calculations2_Questions" FromRole="Calculation" ToRole="GameQuestion" />
           <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_Calculations3_Questions" FromRole="Calculation" ToRole="GameQuestion" />
           <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_Calculations4_Questions" FromRole="Calculation" ToRole="GameQuestion" />
-        </EntityType>
-        <EntityType Name="Game">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstPlayerId" Type="Int32" Nullable="false" />
-          <Property Name="SecondPlayerId" Type="Int32" />
-          <Property Name="FirstPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="SecondPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="DatePlayed" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="GameQuestions" Type="Int32" />
-          <NavigationProperty Name="GameQuestion" Relationship="Se7enQModel.FK_Game_Questions" FromRole="Game" ToRole="GameQuestion" />
-          <NavigationProperty Name="User" Relationship="Se7enQModel.FK_Game_User1" FromRole="Game" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Se7enQModel.FK_Game_User2" FromRole="Game" ToRole="User" />
         </EntityType>
         <EntityType Name="GameQuestion">
           <Key>
@@ -724,7 +697,6 @@
           <NavigationProperty Name="Calculation1" Relationship="Se7enQModel.FK_Calculations2_Questions" FromRole="GameQuestion" ToRole="Calculation" />
           <NavigationProperty Name="Calculation2" Relationship="Se7enQModel.FK_Calculations3_Questions" FromRole="GameQuestion" ToRole="Calculation" />
           <NavigationProperty Name="Calculation3" Relationship="Se7enQModel.FK_Calculations4_Questions" FromRole="GameQuestion" ToRole="Calculation" />
-          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_Questions" FromRole="GameQuestion" ToRole="Game" />
           <NavigationProperty Name="WordDefinition" Relationship="Se7enQModel.FK_Definitions1_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
           <NavigationProperty Name="WordDefinition1" Relationship="Se7enQModel.FK_Definitions2_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
           <NavigationProperty Name="WordDefinition2" Relationship="Se7enQModel.FK_Definitions3_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
@@ -741,6 +713,7 @@
           <NavigationProperty Name="WordSynonym1" Relationship="Se7enQModel.FK_Synonyms2_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
           <NavigationProperty Name="WordSynonym2" Relationship="Se7enQModel.FK_Synonyms3_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
           <NavigationProperty Name="WordSynonym3" Relationship="Se7enQModel.FK_Synonyms4_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
+          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_Questions" FromRole="GameQuestion" ToRole="Game" />
         </EntityType>
         <EntityType Name="GeneralKnowledge">
           <Key>
@@ -816,9 +789,9 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Training" Relationship="Se7enQModel.FK_Training_User" FromRole="User" ToRole="Training" />
           <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
           <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
-          <NavigationProperty Name="Training" Relationship="Se7enQModel.FK_Training_User" FromRole="User" ToRole="Training" />
         </EntityType>
         <EntityType Name="WordDefinition">
           <Key>
@@ -894,42 +867,6 @@
             </Principal>
             <Dependent Role="GameQuestion">
               <PropertyRef Name="Calculations4" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Game_Questions">
-          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="0..1" />
-          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GameQuestion">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Game">
-              <PropertyRef Name="GameQuestions" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Game_User1">
-          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
-          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Game">
-              <PropertyRef Name="FirstPlayerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Game_User2">
-          <End Type="Se7enQModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Game">
-              <PropertyRef Name="SecondPlayerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1137,19 +1074,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstPlayerId" Type="Int32" Nullable="false" />
+          <Property Name="SecondPlayerId" Type="Int32" />
+          <Property Name="FirstPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SecondPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DatePlayed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GameQuestions" Type="Int32" />
+          <Property Name="FirstPlayerAnswer" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="SecondPlayerAnswer" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="GameQuestion" Relationship="Se7enQModel.FK_Game_Questions" FromRole="Game" ToRole="GameQuestion" />
+          <NavigationProperty Name="User" Relationship="Se7enQModel.FK_Game_User1" FromRole="Game" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Se7enQModel.FK_Game_User2" FromRole="Game" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Game_Questions">
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="0..1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GameQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="GameQuestions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_User1">
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="FirstPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_User2">
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="SecondPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Se7enQModelStoreContainer" CdmEntityContainer="Se7enQEntities">
-          <EntitySetMapping Name="C__RefactorLog">
-            <EntityTypeMapping TypeName="Se7enQModel.C__RefactorLog">
-              <MappingFragment StoreEntitySet="__RefactorLog">
-                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Calculations">
             <EntityTypeMapping TypeName="Se7enQModel.Calculation">
               <MappingFragment StoreEntitySet="Calculations">
@@ -1158,19 +1141,6 @@
                 <ScalarProperty Name="WrongResult1" ColumnName="WrongResult1" />
                 <ScalarProperty Name="CorrectResult" ColumnName="CorrectResult" />
                 <ScalarProperty Name="Expression" ColumnName="Expression" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Games">
-            <EntityTypeMapping TypeName="Se7enQModel.Game">
-              <MappingFragment StoreEntitySet="Game">
-                <ScalarProperty Name="GameQuestions" ColumnName="GameQuestions" />
-                <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
-                <ScalarProperty Name="SecondPlayerPoints" ColumnName="SecondPlayerPoints" />
-                <ScalarProperty Name="FirstPlayerPoints" ColumnName="FirstPlayerPoints" />
-                <ScalarProperty Name="SecondPlayerId" ColumnName="SecondPlayerId" />
-                <ScalarProperty Name="FirstPlayerId" ColumnName="FirstPlayerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1293,6 +1263,21 @@
                 <ScalarProperty Name="WrongAnswer1" ColumnName="WrongAnswer1" />
                 <ScalarProperty Name="CorrectAnswer2" ColumnName="CorrectAnswer2" />
                 <ScalarProperty Name="CorrectAnswer1" ColumnName="CorrectAnswer1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="Se7enQModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="SecondPlayerAnswer" ColumnName="SecondPlayerAnswer" />
+                <ScalarProperty Name="FirstPlayerAnswer" ColumnName="FirstPlayerAnswer" />
+                <ScalarProperty Name="GameQuestions" ColumnName="GameQuestions" />
+                <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
+                <ScalarProperty Name="SecondPlayerPoints" ColumnName="SecondPlayerPoints" />
+                <ScalarProperty Name="FirstPlayerPoints" ColumnName="FirstPlayerPoints" />
+                <ScalarProperty Name="SecondPlayerId" ColumnName="SecondPlayerId" />
+                <ScalarProperty Name="FirstPlayerId" ColumnName="FirstPlayerId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -4,10 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d4b63138273d4db5bae8997aa93a22cd" Name="Diagram1">
-        <EntityTypeShape EntityType="Se7enQModel.C__RefactorLog" Width="1.5" PointX="5.75" PointY="0.75" />
+      <Diagram DiagramId="d4b63138273d4db5bae8997aa93a22cd" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="Se7enQModel.Calculation" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="Se7enQModel.Game" Width="1.5" PointX="6.125" PointY="4.375" />
         <EntityTypeShape EntityType="Se7enQModel.GameQuestion" Width="1.5" PointX="4.125" PointY="1.25" />
         <EntityTypeShape EntityType="Se7enQModel.GeneralKnowledge" Width="1.5" PointX="0.75" PointY="20.375" />
         <EntityTypeShape EntityType="Se7enQModel.LogicArray" Width="1.5" PointX="0.75" PointY="4.375" />
@@ -21,9 +19,6 @@
         <AssociationConnector Association="Se7enQModel.FK_Calculations2_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Calculations3_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Calculations4_Questions" />
-        <AssociationConnector Association="Se7enQModel.FK_Game_Questions" />
-        <AssociationConnector Association="Se7enQModel.FK_Game_User1" />
-        <AssociationConnector Association="Se7enQModel.FK_Game_User2" />
         <AssociationConnector Association="Se7enQModel.FK_Definitions1_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Definitions2_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Definitions3_Questions" />
@@ -41,6 +36,10 @@
         <AssociationConnector Association="Se7enQModel.FK_Synonyms3_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Synonyms4_Questions" />
         <AssociationConnector Association="Se7enQModel.FK_Training_User" />
+        <EntityTypeShape EntityType="Se7enQModel.Game" Width="1.5" PointX="6.375" PointY="6.125" />
+        <AssociationConnector Association="Se7enQModel.FK_Game_Questions" />
+        <AssociationConnector Association="Se7enQModel.FK_Game_User1" />
+        <AssociationConnector Association="Se7enQModel.FK_Game_User2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

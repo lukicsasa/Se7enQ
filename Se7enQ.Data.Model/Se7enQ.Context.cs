@@ -9,11 +9,10 @@
 
 namespace Se7enQ.Data.Model
 {
-    using Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class Se7enQEntities : DbContext
     {
         public Se7enQEntities()
@@ -27,7 +26,6 @@ namespace Se7enQ.Data.Model
         }
     
         public virtual DbSet<Calculation> Calculations { get; set; }
-        public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<GameQuestion> GameQuestions { get; set; }
         public virtual DbSet<GeneralKnowledge> GeneralKnowledges { get; set; }
         public virtual DbSet<LogicArray> LogicArrays { get; set; }
@@ -37,5 +35,6 @@ namespace Se7enQ.Data.Model
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WordDefinition> WordDefinitions { get; set; }
         public virtual DbSet<WordSynonym> WordSynonyms { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
     }
 }

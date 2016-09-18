@@ -46,8 +46,6 @@ namespace Se7enQ.Entities
         public virtual Calculation Calculation1 { get; set; }
         public virtual Calculation Calculation2 { get; set; }
         public virtual Calculation Calculation3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Game> Games { get; set; }
         public virtual WordDefinition WordDefinition { get; set; }
         public virtual WordDefinition WordDefinition1 { get; set; }
         public virtual WordDefinition WordDefinition2 { get; set; }
@@ -64,5 +62,7 @@ namespace Se7enQ.Entities
         public virtual WordSynonym WordSynonym1 { get; set; }
         public virtual WordSynonym WordSynonym2 { get; set; }
         public virtual WordSynonym WordSynonym3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Game> Games { get; set; }
     }
 }
