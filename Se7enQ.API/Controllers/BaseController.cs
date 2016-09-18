@@ -30,5 +30,14 @@ namespace Se7enQ.API.Controllers
                 return trainingManager ?? (trainingManager = new TrainingManager());
             }
         }
+
+        private GameManager gameManager;
+        public GameManager GameManager
+        {
+            get
+            {
+                return gameManager ?? (gameManager = new GameManager());
+            }
+        }
     }
 }

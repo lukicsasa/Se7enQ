@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Se7enQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Calculations">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,10 +28,37 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstPlayerId" Type="int" Nullable="false" />
-          <Property Name="SecondPlayerId" Type="int" Nullable="false" />
+          <Property Name="SecondPlayerId" Type="int" />
           <Property Name="FirstPlayerPoints" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="SecondPlayerPoints" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="DatePlayed" Type="datetime" Nullable="false" />
+          <Property Name="GameQuestions" Type="int" />
+        </EntityType>
+        <EntityType Name="GameQuestions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WordSynonyms1" Type="int" Nullable="false" />
+          <Property Name="WordSynonyms2" Type="int" Nullable="false" />
+          <Property Name="WordSynonyms3" Type="int" Nullable="false" />
+          <Property Name="WordSynonyms4" Type="int" Nullable="false" />
+          <Property Name="WordDefinitions1" Type="int" Nullable="false" />
+          <Property Name="WordDefinitions2" Type="int" Nullable="false" />
+          <Property Name="WordDefinitions3" Type="int" Nullable="false" />
+          <Property Name="WordDefinitions4" Type="int" />
+          <Property Name="LogicArray1" Type="int" />
+          <Property Name="LogicArray2" Type="int" Nullable="false" />
+          <Property Name="LogicArray3" Type="int" Nullable="false" />
+          <Property Name="LogicArray4" Type="int" Nullable="false" />
+          <Property Name="Calculations1" Type="int" Nullable="false" />
+          <Property Name="Calculations2" Type="int" Nullable="false" />
+          <Property Name="Calculations3" Type="int" Nullable="false" />
+          <Property Name="Calculations4" Type="int" Nullable="false" />
+          <Property Name="GeneralKnowledge1" Type="int" Nullable="false" />
+          <Property Name="GeneralKnowledge2" Type="int" Nullable="false" />
+          <Property Name="GeneralKnowledge3" Type="int" Nullable="false" />
+          <Property Name="GeneralKnowledge4" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GeneralKnowledge">
           <Key>
@@ -92,7 +125,6 @@
           <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Playing" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="WordDefinition">
           <Key>
@@ -115,6 +147,114 @@
           <Property Name="WrongAnswer1" Type="nvarchar(max)" Nullable="false" />
           <Property Name="WrongAnswer2" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Calculations1_Questions">
+          <End Role="Calculations" Type="Self.Calculations" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="Calculations1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations2_Questions">
+          <End Role="Calculations" Type="Self.Calculations" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="Calculations2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations3_Questions">
+          <End Role="Calculations" Type="Self.Calculations" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="Calculations3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations4_Questions">
+          <End Role="Calculations" Type="Self.Calculations" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="Calculations4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions1_Questions">
+          <End Role="WordDefinition" Type="Self.WordDefinition" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordDefinitions1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions2_Questions">
+          <End Role="WordDefinition" Type="Self.WordDefinition" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordDefinitions2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions3_Questions">
+          <End Role="WordDefinition" Type="Self.WordDefinition" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordDefinitions3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions4_Questions">
+          <End Role="WordDefinition" Type="Self.WordDefinition" Multiplicity="0..1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordDefinitions4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Questions">
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GameQuestions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="GameQuestions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Game_User1">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
@@ -128,7 +268,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Game_User2">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -136,6 +276,150 @@
             </Principal>
             <Dependent Role="Game">
               <PropertyRef Name="SecondPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge1_Questions">
+          <End Role="GeneralKnowledge" Type="Self.GeneralKnowledge" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="GeneralKnowledge1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge2_Questions">
+          <End Role="GeneralKnowledge" Type="Self.GeneralKnowledge" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="GeneralKnowledge2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge3_Questions">
+          <End Role="GeneralKnowledge" Type="Self.GeneralKnowledge" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="GeneralKnowledge3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge4_Questions">
+          <End Role="GeneralKnowledge" Type="Self.GeneralKnowledge" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="GeneralKnowledge4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray1_Questions">
+          <End Role="LogicArray" Type="Self.LogicArray" Multiplicity="0..1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="LogicArray1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray2_Questions">
+          <End Role="LogicArray" Type="Self.LogicArray" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="LogicArray2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray3_Questions">
+          <End Role="LogicArray" Type="Self.LogicArray" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="LogicArray3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray4_Questions">
+          <End Role="LogicArray" Type="Self.LogicArray" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="LogicArray4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms1_Questions">
+          <End Role="WordSynonyms" Type="Self.WordSynonyms" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonyms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordSynonyms1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms2_Questions">
+          <End Role="WordSynonyms" Type="Self.WordSynonyms" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonyms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordSynonyms2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms3_Questions">
+          <End Role="WordSynonyms" Type="Self.WordSynonyms" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonyms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordSynonyms3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms4_Questions">
+          <End Role="WordSynonyms" Type="Self.WordSynonyms" Multiplicity="1" />
+          <End Role="GameQuestions" Type="Self.GameQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonyms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestions">
+              <PropertyRef Name="WordSynonyms4" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -152,8 +436,10 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Se7enQModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Calculations" EntityType="Self.Calculations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameQuestions" EntityType="Self.GameQuestions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralKnowledge" EntityType="Self.GeneralKnowledge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogicArray" EntityType="Self.LogicArray" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Memory" EntityType="Self.Memory" Schema="dbo" store:Type="Tables" />
@@ -162,6 +448,42 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WordDefinition" EntityType="Self.WordDefinition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WordSynonyms" EntityType="Self.WordSynonyms" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calculations1_Questions" Association="Self.FK_Calculations1_Questions">
+            <End Role="Calculations" EntitySet="Calculations" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations2_Questions" Association="Self.FK_Calculations2_Questions">
+            <End Role="Calculations" EntitySet="Calculations" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations3_Questions" Association="Self.FK_Calculations3_Questions">
+            <End Role="Calculations" EntitySet="Calculations" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations4_Questions" Association="Self.FK_Calculations4_Questions">
+            <End Role="Calculations" EntitySet="Calculations" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions1_Questions" Association="Self.FK_Definitions1_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinition" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions2_Questions" Association="Self.FK_Definitions2_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinition" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions3_Questions" Association="Self.FK_Definitions3_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinition" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions4_Questions" Association="Self.FK_Definitions4_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinition" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Questions" Association="Self.FK_Game_Questions">
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
           <AssociationSet Name="FK_Game_User1" Association="Self.FK_Game_User1">
             <End Role="User" EntitySet="User" />
             <End Role="Game" EntitySet="Game" />
@@ -169,6 +491,54 @@
           <AssociationSet Name="FK_Game_User2" Association="Self.FK_Game_User2">
             <End Role="User" EntitySet="User" />
             <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge1_Questions" Association="Self.FK_GeneralKnowledge1_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledge" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge2_Questions" Association="Self.FK_GeneralKnowledge2_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledge" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge3_Questions" Association="Self.FK_GeneralKnowledge3_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledge" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge4_Questions" Association="Self.FK_GeneralKnowledge4_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledge" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray1_Questions" Association="Self.FK_LogicArray1_Questions">
+            <End Role="LogicArray" EntitySet="LogicArray" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray2_Questions" Association="Self.FK_LogicArray2_Questions">
+            <End Role="LogicArray" EntitySet="LogicArray" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray3_Questions" Association="Self.FK_LogicArray3_Questions">
+            <End Role="LogicArray" EntitySet="LogicArray" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray4_Questions" Association="Self.FK_LogicArray4_Questions">
+            <End Role="LogicArray" EntitySet="LogicArray" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms1_Questions" Association="Self.FK_Synonyms1_Questions">
+            <End Role="WordSynonyms" EntitySet="WordSynonyms" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms2_Questions" Association="Self.FK_Synonyms2_Questions">
+            <End Role="WordSynonyms" EntitySet="WordSynonyms" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms3_Questions" Association="Self.FK_Synonyms3_Questions">
+            <End Role="WordSynonyms" EntitySet="WordSynonyms" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms4_Questions" Association="Self.FK_Synonyms4_Questions">
+            <End Role="WordSynonyms" EntitySet="WordSynonyms" />
+            <End Role="GameQuestions" EntitySet="GameQuestions" />
           </AssociationSet>
           <AssociationSet Name="FK_Training_User" Association="Self.FK_Training_User">
             <End Role="User" EntitySet="User" />
@@ -180,8 +550,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Se7enQModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Se7enQEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__RefactorLog" EntityType="Se7enQModel.C__RefactorLog" />
           <EntitySet Name="Calculations" EntityType="Se7enQModel.Calculation" />
           <EntitySet Name="Games" EntityType="Se7enQModel.Game" />
+          <EntitySet Name="GameQuestions" EntityType="Se7enQModel.GameQuestion" />
           <EntitySet Name="GeneralKnowledges" EntityType="Se7enQModel.GeneralKnowledge" />
           <EntitySet Name="LogicArrays" EntityType="Se7enQModel.LogicArray" />
           <EntitySet Name="Memories" EntityType="Se7enQModel.Memory" />
@@ -190,6 +562,26 @@
           <EntitySet Name="Users" EntityType="Se7enQModel.User" />
           <EntitySet Name="WordDefinitions" EntityType="Se7enQModel.WordDefinition" />
           <EntitySet Name="WordSynonyms" EntityType="Se7enQModel.WordSynonym" />
+          <AssociationSet Name="FK_Calculations1_Questions" Association="Se7enQModel.FK_Calculations1_Questions">
+            <End Role="Calculation" EntitySet="Calculations" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations2_Questions" Association="Se7enQModel.FK_Calculations2_Questions">
+            <End Role="Calculation" EntitySet="Calculations" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations3_Questions" Association="Se7enQModel.FK_Calculations3_Questions">
+            <End Role="Calculation" EntitySet="Calculations" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Calculations4_Questions" Association="Se7enQModel.FK_Calculations4_Questions">
+            <End Role="Calculation" EntitySet="Calculations" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Game_Questions" Association="Se7enQModel.FK_Game_Questions">
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
           <AssociationSet Name="FK_Game_User1" Association="Se7enQModel.FK_Game_User1">
             <End Role="User" EntitySet="Users" />
             <End Role="Game" EntitySet="Games" />
@@ -198,11 +590,81 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Game" EntitySet="Games" />
           </AssociationSet>
+          <AssociationSet Name="FK_Definitions1_Questions" Association="Se7enQModel.FK_Definitions1_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinitions" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions2_Questions" Association="Se7enQModel.FK_Definitions2_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinitions" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions3_Questions" Association="Se7enQModel.FK_Definitions3_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinitions" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Definitions4_Questions" Association="Se7enQModel.FK_Definitions4_Questions">
+            <End Role="WordDefinition" EntitySet="WordDefinitions" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge1_Questions" Association="Se7enQModel.FK_GeneralKnowledge1_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledges" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge2_Questions" Association="Se7enQModel.FK_GeneralKnowledge2_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledges" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge3_Questions" Association="Se7enQModel.FK_GeneralKnowledge3_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledges" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralKnowledge4_Questions" Association="Se7enQModel.FK_GeneralKnowledge4_Questions">
+            <End Role="GeneralKnowledge" EntitySet="GeneralKnowledges" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray1_Questions" Association="Se7enQModel.FK_LogicArray1_Questions">
+            <End Role="LogicArray" EntitySet="LogicArrays" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray2_Questions" Association="Se7enQModel.FK_LogicArray2_Questions">
+            <End Role="LogicArray" EntitySet="LogicArrays" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray3_Questions" Association="Se7enQModel.FK_LogicArray3_Questions">
+            <End Role="LogicArray" EntitySet="LogicArrays" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogicArray4_Questions" Association="Se7enQModel.FK_LogicArray4_Questions">
+            <End Role="LogicArray" EntitySet="LogicArrays" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms1_Questions" Association="Se7enQModel.FK_Synonyms1_Questions">
+            <End Role="WordSynonym" EntitySet="WordSynonyms" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms2_Questions" Association="Se7enQModel.FK_Synonyms2_Questions">
+            <End Role="WordSynonym" EntitySet="WordSynonyms" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms3_Questions" Association="Se7enQModel.FK_Synonyms3_Questions">
+            <End Role="WordSynonym" EntitySet="WordSynonyms" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Synonyms4_Questions" Association="Se7enQModel.FK_Synonyms4_Questions">
+            <End Role="WordSynonym" EntitySet="WordSynonyms" />
+            <End Role="GameQuestion" EntitySet="GameQuestions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Training_User" Association="Se7enQModel.FK_Training_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Training" EntitySet="Trainings" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
         <EntityType Name="Calculation">
           <Key>
             <PropertyRef Name="Id" />
@@ -213,6 +675,10 @@
           <Property Name="WrongResult1" Type="Int32" Nullable="false" />
           <Property Name="WrongResult2" Type="Int32" Nullable="false" />
           <Property Name="WrongResult3" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GameQuestions" Relationship="Se7enQModel.FK_Calculations1_Questions" FromRole="Calculation" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_Calculations2_Questions" FromRole="Calculation" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_Calculations3_Questions" FromRole="Calculation" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_Calculations4_Questions" FromRole="Calculation" ToRole="GameQuestion" />
         </EntityType>
         <EntityType Name="Game">
           <Key>
@@ -220,12 +686,61 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstPlayerId" Type="Int32" Nullable="false" />
-          <Property Name="SecondPlayerId" Type="Int32" Nullable="false" />
+          <Property Name="SecondPlayerId" Type="Int32" />
           <Property Name="FirstPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="SecondPlayerPoints" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="DatePlayed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GameQuestions" Type="Int32" />
+          <NavigationProperty Name="GameQuestion" Relationship="Se7enQModel.FK_Game_Questions" FromRole="Game" ToRole="GameQuestion" />
           <NavigationProperty Name="User" Relationship="Se7enQModel.FK_Game_User1" FromRole="Game" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Se7enQModel.FK_Game_User2" FromRole="Game" ToRole="User" />
+        </EntityType>
+        <EntityType Name="GameQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WordSynonyms1" Type="Int32" Nullable="false" />
+          <Property Name="WordSynonyms2" Type="Int32" Nullable="false" />
+          <Property Name="WordSynonyms3" Type="Int32" Nullable="false" />
+          <Property Name="WordSynonyms4" Type="Int32" Nullable="false" />
+          <Property Name="WordDefinitions1" Type="Int32" Nullable="false" />
+          <Property Name="WordDefinitions2" Type="Int32" Nullable="false" />
+          <Property Name="WordDefinitions3" Type="Int32" Nullable="false" />
+          <Property Name="WordDefinitions4" Type="Int32" />
+          <Property Name="LogicArray1" Type="Int32" />
+          <Property Name="LogicArray2" Type="Int32" Nullable="false" />
+          <Property Name="LogicArray3" Type="Int32" Nullable="false" />
+          <Property Name="LogicArray4" Type="Int32" Nullable="false" />
+          <Property Name="Calculations1" Type="Int32" Nullable="false" />
+          <Property Name="Calculations2" Type="Int32" Nullable="false" />
+          <Property Name="Calculations3" Type="Int32" Nullable="false" />
+          <Property Name="Calculations4" Type="Int32" Nullable="false" />
+          <Property Name="GeneralKnowledge1" Type="Int32" Nullable="false" />
+          <Property Name="GeneralKnowledge2" Type="Int32" Nullable="false" />
+          <Property Name="GeneralKnowledge3" Type="Int32" Nullable="false" />
+          <Property Name="GeneralKnowledge4" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Calculation" Relationship="Se7enQModel.FK_Calculations1_Questions" FromRole="GameQuestion" ToRole="Calculation" />
+          <NavigationProperty Name="Calculation1" Relationship="Se7enQModel.FK_Calculations2_Questions" FromRole="GameQuestion" ToRole="Calculation" />
+          <NavigationProperty Name="Calculation2" Relationship="Se7enQModel.FK_Calculations3_Questions" FromRole="GameQuestion" ToRole="Calculation" />
+          <NavigationProperty Name="Calculation3" Relationship="Se7enQModel.FK_Calculations4_Questions" FromRole="GameQuestion" ToRole="Calculation" />
+          <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_Questions" FromRole="GameQuestion" ToRole="Game" />
+          <NavigationProperty Name="WordDefinition" Relationship="Se7enQModel.FK_Definitions1_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
+          <NavigationProperty Name="WordDefinition1" Relationship="Se7enQModel.FK_Definitions2_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
+          <NavigationProperty Name="WordDefinition2" Relationship="Se7enQModel.FK_Definitions3_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
+          <NavigationProperty Name="WordDefinition3" Relationship="Se7enQModel.FK_Definitions4_Questions" FromRole="GameQuestion" ToRole="WordDefinition" />
+          <NavigationProperty Name="GeneralKnowledge" Relationship="Se7enQModel.FK_GeneralKnowledge1_Questions" FromRole="GameQuestion" ToRole="GeneralKnowledge" />
+          <NavigationProperty Name="GeneralKnowledge5" Relationship="Se7enQModel.FK_GeneralKnowledge2_Questions" FromRole="GameQuestion" ToRole="GeneralKnowledge" />
+          <NavigationProperty Name="GeneralKnowledge6" Relationship="Se7enQModel.FK_GeneralKnowledge3_Questions" FromRole="GameQuestion" ToRole="GeneralKnowledge" />
+          <NavigationProperty Name="GeneralKnowledge7" Relationship="Se7enQModel.FK_GeneralKnowledge4_Questions" FromRole="GameQuestion" ToRole="GeneralKnowledge" />
+          <NavigationProperty Name="LogicArray" Relationship="Se7enQModel.FK_LogicArray1_Questions" FromRole="GameQuestion" ToRole="LogicArray" />
+          <NavigationProperty Name="LogicArray5" Relationship="Se7enQModel.FK_LogicArray2_Questions" FromRole="GameQuestion" ToRole="LogicArray" />
+          <NavigationProperty Name="LogicArray6" Relationship="Se7enQModel.FK_LogicArray3_Questions" FromRole="GameQuestion" ToRole="LogicArray" />
+          <NavigationProperty Name="LogicArray7" Relationship="Se7enQModel.FK_LogicArray4_Questions" FromRole="GameQuestion" ToRole="LogicArray" />
+          <NavigationProperty Name="WordSynonym" Relationship="Se7enQModel.FK_Synonyms1_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
+          <NavigationProperty Name="WordSynonym1" Relationship="Se7enQModel.FK_Synonyms2_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
+          <NavigationProperty Name="WordSynonym2" Relationship="Se7enQModel.FK_Synonyms3_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
+          <NavigationProperty Name="WordSynonym3" Relationship="Se7enQModel.FK_Synonyms4_Questions" FromRole="GameQuestion" ToRole="WordSynonym" />
         </EntityType>
         <EntityType Name="GeneralKnowledge">
           <Key>
@@ -237,6 +752,10 @@
           <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GameQuestions" Relationship="Se7enQModel.FK_GeneralKnowledge1_Questions" FromRole="GeneralKnowledge" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_GeneralKnowledge2_Questions" FromRole="GeneralKnowledge" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_GeneralKnowledge3_Questions" FromRole="GeneralKnowledge" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_GeneralKnowledge4_Questions" FromRole="GeneralKnowledge" ToRole="GameQuestion" />
         </EntityType>
         <EntityType Name="LogicArray">
           <Key>
@@ -248,6 +767,10 @@
           <Property Name="WrongNumber1" Type="Int32" Nullable="false" />
           <Property Name="WrongNumber2" Type="Int32" Nullable="false" />
           <Property Name="WrongNumber3" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GameQuestions" Relationship="Se7enQModel.FK_LogicArray1_Questions" FromRole="LogicArray" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_LogicArray2_Questions" FromRole="LogicArray" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_LogicArray3_Questions" FromRole="LogicArray" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_LogicArray4_Questions" FromRole="LogicArray" ToRole="GameQuestion" />
         </EntityType>
         <EntityType Name="Memory">
           <Key>
@@ -293,7 +816,6 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Playing" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Games" Relationship="Se7enQModel.FK_Game_User1" FromRole="User" ToRole="Game" />
           <NavigationProperty Name="Games1" Relationship="Se7enQModel.FK_Game_User2" FromRole="User" ToRole="Game" />
           <NavigationProperty Name="Training" Relationship="Se7enQModel.FK_Training_User" FromRole="User" ToRole="Training" />
@@ -308,6 +830,10 @@
           <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer3" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Word" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GameQuestions" Relationship="Se7enQModel.FK_Definitions1_Questions" FromRole="WordDefinition" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_Definitions2_Questions" FromRole="WordDefinition" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_Definitions3_Questions" FromRole="WordDefinition" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_Definitions4_Questions" FromRole="WordDefinition" ToRole="GameQuestion" />
         </EntityType>
         <EntityType Name="WordSynonym">
           <Key>
@@ -318,7 +844,71 @@
           <Property Name="CorrectAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WrongAnswer2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GameQuestions" Relationship="Se7enQModel.FK_Synonyms1_Questions" FromRole="WordSynonym" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions1" Relationship="Se7enQModel.FK_Synonyms2_Questions" FromRole="WordSynonym" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions2" Relationship="Se7enQModel.FK_Synonyms3_Questions" FromRole="WordSynonym" ToRole="GameQuestion" />
+          <NavigationProperty Name="GameQuestions3" Relationship="Se7enQModel.FK_Synonyms4_Questions" FromRole="WordSynonym" ToRole="GameQuestion" />
         </EntityType>
+        <Association Name="FK_Calculations1_Questions">
+          <End Type="Se7enQModel.Calculation" Role="Calculation" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="Calculations1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations2_Questions">
+          <End Type="Se7enQModel.Calculation" Role="Calculation" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="Calculations2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations3_Questions">
+          <End Type="Se7enQModel.Calculation" Role="Calculation" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="Calculations3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Calculations4_Questions">
+          <End Type="Se7enQModel.Calculation" Role="Calculation" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Calculation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="Calculations4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Game_Questions">
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="0..1" />
+          <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GameQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="GameQuestions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Game_User1">
           <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
           <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
@@ -332,7 +922,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Game_User2">
-          <End Type="Se7enQModel.User" Role="User" Multiplicity="1" />
+          <End Type="Se7enQModel.User" Role="User" Multiplicity="0..1" />
           <End Type="Se7enQModel.Game" Role="Game" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -340,6 +930,198 @@
             </Principal>
             <Dependent Role="Game">
               <PropertyRef Name="SecondPlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions1_Questions">
+          <End Type="Se7enQModel.WordDefinition" Role="WordDefinition" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordDefinitions1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions2_Questions">
+          <End Type="Se7enQModel.WordDefinition" Role="WordDefinition" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordDefinitions2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions3_Questions">
+          <End Type="Se7enQModel.WordDefinition" Role="WordDefinition" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordDefinitions3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Definitions4_Questions">
+          <End Type="Se7enQModel.WordDefinition" Role="WordDefinition" Multiplicity="0..1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordDefinition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordDefinitions4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge1_Questions">
+          <End Type="Se7enQModel.GeneralKnowledge" Role="GeneralKnowledge" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="GeneralKnowledge1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge2_Questions">
+          <End Type="Se7enQModel.GeneralKnowledge" Role="GeneralKnowledge" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="GeneralKnowledge2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge3_Questions">
+          <End Type="Se7enQModel.GeneralKnowledge" Role="GeneralKnowledge" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="GeneralKnowledge3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralKnowledge4_Questions">
+          <End Type="Se7enQModel.GeneralKnowledge" Role="GeneralKnowledge" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralKnowledge">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="GeneralKnowledge4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray1_Questions">
+          <End Type="Se7enQModel.LogicArray" Role="LogicArray" Multiplicity="0..1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="LogicArray1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray2_Questions">
+          <End Type="Se7enQModel.LogicArray" Role="LogicArray" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="LogicArray2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray3_Questions">
+          <End Type="Se7enQModel.LogicArray" Role="LogicArray" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="LogicArray3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogicArray4_Questions">
+          <End Type="Se7enQModel.LogicArray" Role="LogicArray" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogicArray">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="LogicArray4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms1_Questions">
+          <End Type="Se7enQModel.WordSynonym" Role="WordSynonym" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordSynonyms1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms2_Questions">
+          <End Type="Se7enQModel.WordSynonym" Role="WordSynonym" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordSynonyms2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms3_Questions">
+          <End Type="Se7enQModel.WordSynonym" Role="WordSynonym" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordSynonyms3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Synonyms4_Questions">
+          <End Type="Se7enQModel.WordSynonym" Role="WordSynonym" Multiplicity="1" />
+          <End Type="Se7enQModel.GameQuestion" Role="GameQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WordSynonym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameQuestion">
+              <PropertyRef Name="WordSynonyms4" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -361,6 +1143,13 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Se7enQModelStoreContainer" CdmEntityContainer="Se7enQEntities">
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="Se7enQModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Calculations">
             <EntityTypeMapping TypeName="Se7enQModel.Calculation">
               <MappingFragment StoreEntitySet="Calculations">
@@ -376,11 +1165,39 @@
           <EntitySetMapping Name="Games">
             <EntityTypeMapping TypeName="Se7enQModel.Game">
               <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="GameQuestions" ColumnName="GameQuestions" />
                 <ScalarProperty Name="DatePlayed" ColumnName="DatePlayed" />
                 <ScalarProperty Name="SecondPlayerPoints" ColumnName="SecondPlayerPoints" />
                 <ScalarProperty Name="FirstPlayerPoints" ColumnName="FirstPlayerPoints" />
                 <ScalarProperty Name="SecondPlayerId" ColumnName="SecondPlayerId" />
                 <ScalarProperty Name="FirstPlayerId" ColumnName="FirstPlayerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameQuestions">
+            <EntityTypeMapping TypeName="Se7enQModel.GameQuestion">
+              <MappingFragment StoreEntitySet="GameQuestions">
+                <ScalarProperty Name="GeneralKnowledge4" ColumnName="GeneralKnowledge4" />
+                <ScalarProperty Name="GeneralKnowledge3" ColumnName="GeneralKnowledge3" />
+                <ScalarProperty Name="GeneralKnowledge2" ColumnName="GeneralKnowledge2" />
+                <ScalarProperty Name="GeneralKnowledge1" ColumnName="GeneralKnowledge1" />
+                <ScalarProperty Name="Calculations4" ColumnName="Calculations4" />
+                <ScalarProperty Name="Calculations3" ColumnName="Calculations3" />
+                <ScalarProperty Name="Calculations2" ColumnName="Calculations2" />
+                <ScalarProperty Name="Calculations1" ColumnName="Calculations1" />
+                <ScalarProperty Name="LogicArray4" ColumnName="LogicArray4" />
+                <ScalarProperty Name="LogicArray3" ColumnName="LogicArray3" />
+                <ScalarProperty Name="LogicArray2" ColumnName="LogicArray2" />
+                <ScalarProperty Name="LogicArray1" ColumnName="LogicArray1" />
+                <ScalarProperty Name="WordDefinitions4" ColumnName="WordDefinitions4" />
+                <ScalarProperty Name="WordDefinitions3" ColumnName="WordDefinitions3" />
+                <ScalarProperty Name="WordDefinitions2" ColumnName="WordDefinitions2" />
+                <ScalarProperty Name="WordDefinitions1" ColumnName="WordDefinitions1" />
+                <ScalarProperty Name="WordSynonyms4" ColumnName="WordSynonyms4" />
+                <ScalarProperty Name="WordSynonyms3" ColumnName="WordSynonyms3" />
+                <ScalarProperty Name="WordSynonyms2" ColumnName="WordSynonyms2" />
+                <ScalarProperty Name="WordSynonyms1" ColumnName="WordSynonyms1" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -446,7 +1263,6 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Se7enQModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Playing" ColumnName="Playing" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

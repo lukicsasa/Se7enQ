@@ -16,11 +16,13 @@ namespace Se7enQ.Entities
     {
         public int Id { get; set; }
         public int FirstPlayerId { get; set; }
-        public int SecondPlayerId { get; set; }
+        public Nullable<int> SecondPlayerId { get; set; }
         public decimal FirstPlayerPoints { get; set; }
         public decimal SecondPlayerPoints { get; set; }
         public System.DateTime DatePlayed { get; set; }
+        public Nullable<int> GameQuestions { get; set; }
     
+        public virtual GameQuestion GameQuestion { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
     }

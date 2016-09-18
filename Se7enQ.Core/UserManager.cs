@@ -64,8 +64,7 @@ namespace Se7enQ.Core
                     Password = password,
                     Email = email,
                     FirstName = firstName,
-                    LastName = lastName,
-                    Playing = false
+                    LastName = lastName
                 };
                 
                 uow.UserRepository.Insert(user);

@@ -28,6 +28,7 @@ namespace Se7enQ.Data.UnitOfWork
         private WordDefinitionRepository wordDefinitionRepository;
         private WordSynonymsRepository wordSynonymsRepository;
         private TrainingRepository trainingRepository;
+        private GameQuestionsRepository gameQuestionsRepository;
 
         #endregion Fields
 
@@ -124,6 +125,14 @@ namespace Se7enQ.Data.UnitOfWork
             get
             {
                 return trainingRepository ?? (trainingRepository = new TrainingRepository(DataContext));
+            }
+        }
+
+        public GameQuestionsRepository GameQuestionsRepository
+        {
+            get
+            {
+                return gameQuestionsRepository ?? (gameQuestionsRepository = new GameQuestionsRepository(DataContext));
             }
         }
 
