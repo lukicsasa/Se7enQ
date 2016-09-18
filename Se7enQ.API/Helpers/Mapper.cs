@@ -36,7 +36,6 @@ namespace Se7enQ.API.Helpers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Password = user.Password,
-                Playing = user.Playing
             };
             return userModel;
         }

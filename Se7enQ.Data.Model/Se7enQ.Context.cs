@@ -9,10 +9,11 @@
 
 namespace Se7enQ.Data.Model
 {
+    using Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class Se7enQEntities : DbContext
     {
         public Se7enQEntities()
@@ -25,7 +26,6 @@ namespace Se7enQ.Data.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Calculation> Calculations { get; set; }
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<GameQuestion> GameQuestions { get; set; }

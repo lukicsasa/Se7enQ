@@ -13,9 +13,9 @@ Post-Deployment Script Template
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
 VALUES ('admin','admin','Admin','Admin',GETDATE(),'admin@admin.com',null)
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
-VALUES ('igrac1','igrac1','Igrac1','Igrac1',GETDATE(),'igrac1@igrac1.com',null)
+VALUES ('igrac1','1000:zSDGTlc+/x+tfSS52XT1z9FJyafYV9pc:22fudLYenrahJFl17wTtLemXXLx9Bq1x','Igrac1','Igrac1',GETDATE(),'igrac1@igrac1.com',null)
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
-VALUES ('igrac2','igrac2','Igrac2','Igrac2',GETDATE(),'igrac2@igrac2.com',null)
+VALUES ('igrac2','1000:6inD5u+UXKn5wIDR8I/cmuZpCSqFCyDM:tH9pU3dEhLJ7TX7Di5i7kg8yiBvuewhq','Igrac2','Igrac2',GETDATE(),'igrac2@igrac2.com',null)
 
 INSERT INTO [dbo].[Training] ([UserId])
 VALUES (1)
