@@ -17,6 +17,13 @@ VALUES ('igrac1','igrac1','Igrac1','Igrac1',GETDATE(),'igrac1@igrac1.com',null)
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
 VALUES ('igrac2','igrac2','Igrac2','Igrac2',GETDATE(),'igrac2@igrac2.com',null)
 
+INSERT INTO [dbo].[Training] ([UserId])
+VALUES (1)
+INSERT INTO [dbo].[Training] ([UserId])
+VALUES (2)
+INSERT INTO [dbo].[Training] ([UserId])
+VALUES (3)
+
 /*word definition dummy*/
 INSERT INTO [dbo].[WordDefinition] ([CorrectAnswer],[WrongAnswer1],[WrongAnswer2],[WrongAnswer3],[Word])
 VALUES ('Neka Ga','Ovako','Sta cu','Ne mogu','Smisljam')
