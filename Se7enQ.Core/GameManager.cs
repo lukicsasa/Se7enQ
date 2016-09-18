@@ -39,7 +39,7 @@ namespace Se7enQ.Core
                         while (true)
                         {
                             var secondPlayer = GetSecondPlayer(currentUserId);
-                            if(secondPlayer != null)
+                            if (secondPlayer != null)
                             {
                                 return secondPlayer;
                             }
@@ -47,6 +47,121 @@ namespace Se7enQ.Core
                         }
                     }
                 }
+            }
+        }
+
+        public object GetQuestion(int currentUserId, string answer, bool correct, int questionIndex)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                string opponentAnswer = null;
+                int opponentPoints = 0;
+                Game game = uow.GameRepository.Find(a => a.FirstPlayerId == currentUserId || a.SecondPlayerId == currentUserId).FirstOrDefault();
+
+                if (questionIndex == 20)
+                {
+                    if (game != null)
+                    {
+                        var generatedQuestions = uow.GameQuestionsRepository.Find(a => a.Id == game.GameQuestions).FirstOrDefault();
+
+                        uow.GameRepository.Delete(game);
+                        uow.GameQuestionsRepository.Delete(generatedQuestions);
+                        uow.Save();
+                        return null;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+
+                if (game.FirstPlayerId == currentUserId)
+                {
+                    game.FirstPlayerAnswer = answer;
+                    if (correct)
+                    {
+                        game.FirstPlayerPoints++;
+                    }
+                    uow.Save();
+                    while (true)
+                    {
+                        dynamic opponentScore = GetOpponentScore(1, game.Id);
+                        if (opponentScore != null)
+                        {
+                            opponentAnswer = opponentScore.Answer;
+                            opponentPoints = (int)opponentScore.Points;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    game.SecondPlayerAnswer = answer;
+                    if (correct)
+                    {
+                        game.SecondPlayerPoints++;
+                    }
+                    uow.Save();
+                    while (true)
+                    {
+                        dynamic opponentScore = GetOpponentScore(2, game.Id);
+                        if (opponentScore != null)
+                        {
+                            opponentAnswer = opponentScore.Answer;
+                            opponentPoints = (int)opponentScore.Points;
+                            break;
+                        }
+                    }
+                }
+
+                GameQuestion questions = uow.GameQuestionsRepository.Find(a => a.Id == game.GameQuestions).FirstOrDefault();
+                var nextQuestion = GetQuestion(questions, questionIndex);
+                return new
+                {
+                    question = nextQuestion,
+                    opponentAnswer = opponentAnswer,
+                    opponentPoints = opponentPoints
+                };
+            }
+        }
+
+        private object GetOpponentScore(int player, int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Game game = uow.GameRepository.Find(a => a.Id == id).FirstOrDefault();
+                if (player == 1)
+                {
+                    if (game.SecondPlayerAnswer != null)
+                    {
+                        object answer = new
+                        {
+                            Answer = game.SecondPlayerAnswer,
+                            Points = game.SecondPlayerPoints
+                        };
+                        game.FirstPlayerAnswer = null;
+                        game.SecondPlayerAnswer = null;
+                        uow.Save();
+                        return answer;
+                    }
+                }
+                else
+                {
+                    if (game.FirstPlayerAnswer != null)
+                    {
+                        object answer = new
+                        {
+                            Answer = game.FirstPlayerAnswer,
+                            Points = game.FirstPlayerPoints
+                        };
+                        game.FirstPlayerAnswer = null;
+                        game.SecondPlayerAnswer = null;
+                        uow.Save();
+                        return answer;
+                    }
+                }
+
+                return null;
             }
         }
 
@@ -230,6 +345,37 @@ namespace Se7enQ.Core
                 }
             }
             return numbers;
+        }
+
+        private object GetQuestion(GameQuestion questions, int questionIndex)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                switch (questionIndex)
+                {
+                    case 0: return uow.WordSynonymsRepository.GetById(questions.WordSynonyms1);
+                    case 1: return uow.WordSynonymsRepository.GetById(questions.WordSynonyms2);
+                    case 2: return uow.WordSynonymsRepository.GetById(questions.WordSynonyms3);
+                    case 3: return uow.WordSynonymsRepository.GetById(questions.WordSynonyms4);
+                    case 4: return uow.WordDefinitionRepository.GetById(questions.WordDefinitions1);
+                    case 5: return uow.WordDefinitionRepository.GetById(questions.WordDefinitions2);
+                    case 6: return uow.WordDefinitionRepository.GetById(questions.WordDefinitions3);
+                    case 7: return uow.WordDefinitionRepository.GetById(questions.WordDefinitions4);
+                    case 8: return uow.LogicArrayRepository.GetById(questions.LogicArray1);
+                    case 9: return uow.LogicArrayRepository.GetById(questions.LogicArray2);
+                    case 10: return uow.LogicArrayRepository.GetById(questions.LogicArray3);
+                    case 11: return uow.LogicArrayRepository.GetById(questions.LogicArray4);
+                    case 12: return uow.CalculationRepository.GetById(questions.Calculations1);
+                    case 13: return uow.CalculationRepository.GetById(questions.Calculations2);
+                    case 14: return uow.CalculationRepository.GetById(questions.Calculations3);
+                    case 15: return uow.CalculationRepository.GetById(questions.Calculations4);
+                    case 16: return uow.GeneralKnowledgeRepository.GetById(questions.GeneralKnowledge1);
+                    case 17: return uow.GeneralKnowledgeRepository.GetById(questions.GeneralKnowledge2);
+                    case 18: return uow.GeneralKnowledgeRepository.GetById(questions.GeneralKnowledge3);
+                    case 19: return uow.GeneralKnowledgeRepository.GetById(questions.GeneralKnowledge4);
+                    default: return null;
+                }
+            }
         }
     }
 }

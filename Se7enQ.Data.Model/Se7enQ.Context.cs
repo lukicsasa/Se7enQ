@@ -9,10 +9,11 @@
 
 namespace Se7enQ.Data.Model
 {
+    using Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class Se7enQEntities : DbContext
     {
         public Se7enQEntities()
