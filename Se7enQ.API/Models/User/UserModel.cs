@@ -15,6 +15,5 @@ namespace Se7enQ.API.Models.User
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public bool Playing { get; set; }
     }
 }
