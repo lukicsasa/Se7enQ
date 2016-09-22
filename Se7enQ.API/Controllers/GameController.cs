@@ -27,5 +27,12 @@ namespace Se7enQ.API.Controllers
         {
             return GameManager.GetQuestion(CurrentUser.Id, answer.Answer,answer.Correct,answer.QuestionIndex);
         }
+
+        [HttpPost]
+        [TokenAuthorize]
+        public void DeleteGame()
+        {
+            GameManager.DeleteGame(CurrentUser.Id);
+        }
     }
 }

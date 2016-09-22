@@ -11,6 +11,28 @@ namespace Se7enQ.Core
 {
     public class GameManager
     {
+
+        public void DeleteGame(int currentUserId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Game game = uow.GameRepository.Find(a => a.FirstPlayerId == currentUserId || a.SecondPlayerId == currentUserId).FirstOrDefault();
+
+                if (game == null)
+                {
+                    throw new ValidationException("Game ended.");
+                }
+
+                int gameQuestionsId = game.GameQuestions.Value;
+                GameQuestion questions = uow.GameQuestionsRepository.GetById(gameQuestionsId);
+                uow.GameRepository.Delete(game);
+                uow.Save();
+                uow.GameQuestionsRepository.Delete(questions);
+                uow.Save();
+                
+            }
+        }
+
         public User FindOpponent(int currentUserId)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -56,6 +78,7 @@ namespace Se7enQ.Core
             {
                 string opponentAnswer = null;
                 int opponentPoints = 0;
+                int playerPoints = 0;
                 Game game = uow.GameRepository.Find(a => a.FirstPlayerId == currentUserId || a.SecondPlayerId == currentUserId).FirstOrDefault();
 
                 if (questionIndex == 20)
@@ -66,10 +89,6 @@ namespace Se7enQ.Core
 
                         int firstPlayerPoints = (int)game.FirstPlayerPoints;
                         int secondPlayerPoins = (int)game.SecondPlayerPoints;
-
-                        uow.GameRepository.Delete(game);
-                        uow.GameQuestionsRepository.Delete(generatedQuestions);
-                        uow.Save();
 
                         if(game.FirstPlayerId == currentUserId)
                         {
@@ -103,13 +122,14 @@ namespace Se7enQ.Core
                         game.FirstPlayerPoints++;
                     }
                     uow.Save();
-                     while (true)
+                    while (true)
                     {
                         dynamic opponentScore = GetOpponentScore(1, game.Id);
                         if (opponentScore != null)
                         {
                             opponentAnswer = opponentScore.Answer;
                             opponentPoints = (int)opponentScore.Points;
+                            playerPoints = (int)game.FirstPlayerPoints;
                             break;
                         }
                     }
@@ -129,6 +149,7 @@ namespace Se7enQ.Core
                         {
                             opponentAnswer = opponentScore.Answer;
                             opponentPoints = (int)opponentScore.Points;
+                            playerPoints = (int)game.SecondPlayerPoints;
                             break;
                         }
                     }
@@ -141,7 +162,7 @@ namespace Se7enQ.Core
                     question = nextQuestion,
                     opponentAnswer = opponentAnswer,
                     opponentPoints = opponentPoints,
-                    playerPoints = game.FirstPlayerPoints
+                    playerPoints = playerPoints
                 };
             }
         }
