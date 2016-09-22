@@ -56,7 +56,6 @@ namespace Se7enQ.Core
             {
                 string opponentAnswer = null;
                 int opponentPoints = 0;
-                int playerPoints = 0;
                 Game game = uow.GameRepository.Find(a => a.FirstPlayerId == currentUserId || a.SecondPlayerId == currentUserId).FirstOrDefault();
 
                 if (questionIndex == 20)
@@ -65,10 +64,30 @@ namespace Se7enQ.Core
                     {
                         var generatedQuestions = uow.GameQuestionsRepository.Find(a => a.Id == game.GameQuestions).FirstOrDefault();
 
+                        int firstPlayerPoints = (int)game.FirstPlayerPoints;
+                        int secondPlayerPoins = (int)game.SecondPlayerPoints;
+
                         uow.GameRepository.Delete(game);
                         uow.GameQuestionsRepository.Delete(generatedQuestions);
                         uow.Save();
-                        return null;
+
+                        if(game.FirstPlayerId == currentUserId)
+                        {
+                            return new
+                            {
+                                opponentPoints = secondPlayerPoins,
+                                playerPoints = firstPlayerPoints
+                            };
+                        }
+                        else
+                        {
+                            return new
+                            {
+                                opponentPoints = firstPlayerPoints,
+                                playerPoints = secondPlayerPoins
+                            };
+                        }
+                        
                     }
                     else
                     {
