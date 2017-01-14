@@ -1,0 +1,25 @@
+{
+  "name": "se7enq-cms",
+  "version": "1.0.0",
+  "main": "index.html",
+  "author": "Se7enQ Team",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "~1.5.7",
+    "angular-ui-router": "^0.2.18",
+    "angular-sanitize": "~1.5.7",
+    "angular-animate": "~1.5.7",
+    "angular-touch": "~1.5.7",
+    "font-awesome": "~4.6.3",
+    "bootstrap": "~3.3.6",
+    "angular-ui-bootstrap": "~2.0.0",
+    "angularjs-toaster": "~2.0.0",
+    "textangular": "~1.5.2",
+    "ng-file-upload": "~12.0.4",
+    "jquery": "^2.2.1",
+    "moment": "~2.14.1",
+    "angucomplete-alt": "~2.5.0"
+  },
+  "devDependencies": {},
+  "private": true
+}

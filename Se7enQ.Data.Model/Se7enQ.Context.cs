@@ -33,9 +33,9 @@ namespace Se7enQ.Data.Model
         public virtual DbSet<Memory> Memories { get; set; }
         public virtual DbSet<Projection> Projections { get; set; }
         public virtual DbSet<Training> Trainings { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WordDefinition> WordDefinitions { get; set; }
         public virtual DbSet<WordSynonym> WordSynonyms { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

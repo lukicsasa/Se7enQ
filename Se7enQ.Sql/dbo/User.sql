@@ -7,5 +7,6 @@
     [ImageUrl] NVARCHAR(MAX) NULL, 
     [FirstName] NVARCHAR(MAX) NOT NULL, 
     [LastName] NVARCHAR(MAX) NOT NULL, 
-    [Email] NVARCHAR(MAX) NOT NULL 
+    [Email] NVARCHAR(MAX) NOT NULL, 
+    [Admin] BIT NOT NULL DEFAULT 0 
 )

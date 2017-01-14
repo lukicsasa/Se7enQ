@@ -1,0 +1,17 @@
+﻿<div class="col-md-6 col-md-offset-3 login-padding login" style="margin-top:200px">
+    <div class="row">
+        <fieldset class="form-group">
+            <label for="username">USERNAME</label>
+            <input type="text" class="form-control" ng-model="user.username" name="username"  required on-enter-button="login()" />
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset class="form-group">
+            <label for="password">PASSWORD</label>
+            <input type="password" class="form-control" ng-model="user.password" name="password" required on-enter-button="login()" />
+        </fieldset>
+    </div>
+    <div class="row col-sm-offset-4 col-sm-4 text-center">
+        <button type="button" class="btn btn-success col-md-12 center-block" ng-click="login(loginForm.$invalid)">LOG IN</button>
+    </div>
+</div>

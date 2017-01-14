@@ -10,8 +10,8 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
-VALUES ('admin','admin','Admin','Admin',GETDATE(),'admin@admin.com',null)
+INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl],[Admin])
+VALUES ('admin','1000:zSDGTlc+/x+tfSS52XT1z9FJyafYV9pc:22fudLYenrahJFl17wTtLemXXLx9Bq1x','Admin','Admin',GETDATE(),'admin@admin.com',null, 1)
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])
 VALUES ('igrac1','1000:zSDGTlc+/x+tfSS52XT1z9FJyafYV9pc:22fudLYenrahJFl17wTtLemXXLx9Bq1x','Igrac1','Igrac1',GETDATE(),'igrac1@igrac1.com',null)
 INSERT INTO [dbo].[User] ([Username],[Password],[FirstName],[LastName],[DateCreated],[Email],[ImageUrl])

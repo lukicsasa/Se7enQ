@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="sevenqCms">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Styles -->
+    <link href="/node_modules/textangular/dist/textAngular.css" rel="stylesheet" />
+    <link href="/node_modules/angularjs-toaster/toaster.css" rel="stylesheet" />
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/styles/site.css" rel="stylesheet" />
+    <link href="node_modules/angucomplete-alt/angucomplete-alt.css" rel="stylesheet" />
+    <link href="/assets/styles/site.css" rel="stylesheet" />
+    <title>Se7enQ CMS</title>
+    <base href="/">
+</head>
+<body ng-cloak>
+    <div class="layout-wrapper" ui-view></div>
+
+    <!-- Vendor scripts -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/angular-animate/angular-animate.js"></script>
+    <script src="/node_modules/angular-touch/angular-touch.js"></script>
+    <script src="/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <script src="/node_modules/textangular/dist/textAngular-rangy.min.js"></script>
+    <script src="/node_modules/textangular/dist/textAngular-sanitize.min.js"></script>
+    <script src="/node_modules/textangular/dist/textAngular.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/moment/min/moment.min.js"></script>
+    <script src="/node_modules/angularjs-toaster/toaster.js"></script>
+
+    <!--Config-->
+    <script src="/app/config.js"></script>
+
+    <!--Module-->
+    <script src="/app/app.js"></script>
+
+    <!--Filters-->
+    <script src="/app/filters/filters.js"></script>
+
+    <!--Directives-->
+
+    <!--Services-->
+    <script src="app/services/toastService.js"></script>
+    <script src="app/services/userService.js"></script>
+
+    <!--Controllers-->
+    <script src="app/controllers/DashboardController.js"></script>
+    <script src="/app/controllers/LayoutController.js"></script>
+    <script src="/app/controllers/LoginController.js"></script>
+
+</body>
+</html>

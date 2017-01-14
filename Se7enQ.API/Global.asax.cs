@@ -1,4 +1,5 @@
-﻿using Se7enQ.API.Helpers;
+﻿using MultipartDataMediaFormatter;
+using Se7enQ.API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,12 @@ namespace Se7enQ.API
     {
         protected void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
+            GlobalConfiguration.Configuration.Formatters.Add(new FormMultipartEncodedMediaTypeFormatter());
         }
+
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
@@ -32,4 +36,5 @@ namespace Se7enQ.API
             }
         }
     }
+
 }
