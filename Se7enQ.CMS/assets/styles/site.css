@@ -1,2 +1,22 @@
-﻿body {
+﻿.loader {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(221, 221, 221, 0.5) url(../images/ripple.gif) center center no-repeat;
+  background-size: 120px;
+  z-index: 9999;
+}
+
+.add-button {
+    color: white;
+    background: black;
+}
+
+.add-button:hover {
+    color: black;
+    background: white;
+    border: 2px solid black;
 }

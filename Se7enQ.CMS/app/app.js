@@ -14,7 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locatio
         })
             .state('layout.login', {
                 controller: 'LoginController',
-                url: '/login',
+                url: '/login',  
                 templateUrl: '/views/login.html',
                 pageName: 'Login',
                 requireLogin: false
@@ -26,12 +26,37 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locatio
                 pageName: 'Dashboard',
                 requireLogin: true
             })
+            .state('layout.calculations', {
+                controller: 'QuestionsController',
+                url: '/calculations',
+                templateUrl: '/views/questions.html',
+                pageName: 'Calculations',
+                requireLogin: true,
+                resolve: {
+                    method: function (questionsService) {
+                        return questionsService.getCalculations;
+                    }
+                }
+            })
+            .state('layout.knowledge', {
+                controller: 'QuestionsController',
+                url: '/knowledge',
+                templateUrl: '/views/questions.html',
+                pageName: 'General Knowledge',
+                requireLogin: true,
+                resolve: {
+                    method: function (questionsService) {
+                        return questionsService.getKnowledge;
+                    }
+                }
+            })
+    
 
 
 
     $locationProvider.html5Mode(true);
 
-    $httpProvider.interceptors.push(function ($injector) {
+    $httpProvider.interceptors.push(function ($injector, $q) {
         return {
             request: function (requestConfig) {
                 var userService = $injector.get('userService');
@@ -43,9 +68,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locatio
                 return requestConfig;
             },
             responseError: function (response) {
-                //if (response.status == 400) {
-                //    alert(response.data.message);
-                //}
+                if (response.status == 400) {
+                    return $q.reject(response);
+                }
                 if (response.status == 401) {
                     var userService = $injector.get('userService');
                     userService.logout();

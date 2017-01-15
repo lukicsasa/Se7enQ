@@ -1,0 +1,18 @@
+﻿<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Add New {{category}} Question</h4>
+        </div>
+        <div class="col-md-12" ng-form="addForm" ng-enter="addQuestion()">
+            <div class="form-group"  ng-repeat="field in fields">
+                <label ng-bind="field"></label>
+                <input type="text" name="{{field}}" class="form-control" placeholder="{{field}}" ng-model="question[$index]" required />
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-disabled="addForm.$invalid" ng-click="addQuestion()">Add Question</button>
+                <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

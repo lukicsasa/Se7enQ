@@ -4,7 +4,12 @@
             <a class="navbar-brand" href="#" ui-sref="layout.dashboard">Se7enQ</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active" ui-sref="layout.dashboard"><a href="#">Dashboard</a></li>
+            <li ui-sref-active="active" ui-sref="layout.dashboard"><a href="#">Dashboard</a></li>
+            <li ui-sref-active="active" ui-sref="layout.calculations"><a href="#">Calculations</a></li>
+            <li ui-sref-active="active" ui-sref="layout.knowledge"><a href="#">Knowledge</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+            <li ng-click="logout()"><a href="#">Logout</a></li>
         </ul>
     </div>
 </nav>

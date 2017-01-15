@@ -14,6 +14,14 @@ app.filter("correctedDate", function () {
     };
 });
 
+app.filter("removeId", function () {
+    return function (fields) {
+        if (fields.length) {
+            return fields.splice(0, 1);
+        }
+    };
+});
+
 app.filter('range', function () {
     return function (input, start, end) {
         start = parseInt(start);

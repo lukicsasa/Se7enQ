@@ -187,6 +187,7 @@
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\TokenAuthorizeAttribute.cs" />
     <Compile Include="Helpers\ValidateModelAttribute.cs" />
+    <Compile Include="Models\Admin\TableQuestionsModel.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\User\LoginModel.cs" />
     <Compile Include="Models\UserJwtModel.cs" />
