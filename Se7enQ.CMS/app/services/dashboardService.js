@@ -12,5 +12,19 @@
         });
     };
 
+    factory.deleteUser = function (id) {
+        return $http({
+            url: config.baseAddress + 'admin/deleteUser',
+            method: 'POST',
+            params: {
+                id: id
+            }
+        }).then(function (response) {
+            toastService.success('User deleted.');
+        }, function (error) {
+            return $q.reject(error.data.message);
+        });
+    };
+
     return factory;
 });

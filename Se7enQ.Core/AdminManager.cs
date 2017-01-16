@@ -81,6 +81,14 @@ namespace Se7enQ.Core
             using (UnitOfWork uow = new UnitOfWork())
             {
                 List<User> users = uow.UserRepository.GetAll();
+                for(int i=0; i<users.Count; i++)
+                {
+                    if(users[i].Admin == true)
+                    {
+                        users.Remove(users[i]);
+                        break;
+                    }
+                }
                 return users;
             }
         }
@@ -118,7 +126,17 @@ namespace Se7enQ.Core
             }
         }
 
-        
+        public void DeleteUser(int id)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                User user = uow.UserRepository.GetById(id);
+                uow.UserRepository.Delete(user);
+                uow.Save();
+            }
+        }
+
+
 
         public void AddQuestion(QuestionModel question)
         {
@@ -185,6 +203,8 @@ namespace Se7enQ.Core
                 throw new ValidationException("Please correct format.");
             }
         }
+
+       
 
         public void AddQuestionSynonym(QuestionModelSynonym question)
         {

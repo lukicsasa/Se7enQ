@@ -127,7 +127,7 @@ namespace Se7enQ.API.Controllers
 
             return new TableQuestionsModel
             {
-                Headers = new List<string> { "Id", "Correct Answer 1", "Correct Answer 2", "Wrong Answer 1", "Wrong Answer 2"},
+                Headers = new List<string> { "Id", "Correct Answer 1", "Correct Answer 2", "Wrong Answer 1", "Wrong Answer 2" },
                 Questions = questions
             };
         }
@@ -143,11 +143,17 @@ namespace Se7enQ.API.Controllers
                 FirstName = a.FirstName,
                 LastName = a.LastName,
                 Email = a.Email,
-                Username = a.Username,
-                Password = a.Password
+                Username = a.Username
             }).ToList();
 
             return userInfo;
+        }
+
+        [TokenAuthorize]
+        [HttpPost]
+        public void DeleteUser(int id)
+        {
+            AdminManager.DeleteUser(id);
         }
 
         [TokenAuthorize]
