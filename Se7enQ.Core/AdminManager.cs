@@ -49,6 +49,42 @@ namespace Se7enQ.Core
             }
         }
 
+        public List<LogicArray> GetLogicArray()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                List<LogicArray> logicArray = uow.LogicArrayRepository.GetAll();
+                return logicArray;
+            }
+        }
+
+        public List<WordDefinition> GetWordDefinition()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                List<WordDefinition> words = uow.WordDefinitionRepository.GetAll();
+                return words;
+            }
+        }
+
+        public List<WordSynonym> GetSynonym()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                List<WordSynonym> synonym = uow.WordSynonymsRepository.GetAll();
+                return synonym;
+            }
+        }
+
+        public List<User> GetUsers()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                List<User> users = uow.UserRepository.GetAll();
+                return users;
+            }
+        }
+
         public void DeleteQuestion(int id, string category)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -63,12 +99,26 @@ namespace Se7enQ.Core
                         Calculation calculation = uow.CalculationRepository.GetById(id);
                         uow.CalculationRepository.Delete(calculation);
                         break;
+                    case "Logic Array":
+                        LogicArray array = uow.LogicArrayRepository.GetById(id);
+                        uow.LogicArrayRepository.Delete(array);
+                        break;
+                    case "Word Definition":
+                        WordDefinition word = uow.WordDefinitionRepository.GetById(id);
+                        uow.WordDefinitionRepository.Delete(word);
+                        break;
+                    case "Synonyms or Antonyms":
+                        WordSynonym synonym = uow.WordSynonymsRepository.GetById(id);
+                        uow.WordSynonymsRepository.Delete(synonym);
+                        break;
                     default: throw new ValidationException("Category does not exist!");
                 }
 
                 uow.Save();
             }
         }
+
+        
 
         public void AddQuestion(QuestionModel question)
         {
@@ -101,6 +151,29 @@ namespace Se7enQ.Core
                             };
                             uow.GeneralKnowledgeRepository.Insert(knowledge);
                             break;
+                        case "Logic Array":
+                            LogicArray array = new LogicArray
+                            {
+                                Array = question.Question,
+                                CorrectNumber = Int32.Parse(question.CorrectAnswer),
+                                WrongNumber1 = Int32.Parse(question.WrongAnswer1),
+                                WrongNumber2 = Int32.Parse(question.WrongAnswer2),
+                                WrongNumber3 = Int32.Parse(question.WrongAnswer3)
+                            };
+                            uow.LogicArrayRepository.Insert(array);
+                            break;
+                        case "Word Definition":
+                            WordDefinition word = new WordDefinition
+                            {
+                                Word = question.Question,
+                                CorrectAnswer = question.CorrectAnswer,
+                                WrongAnswer1 = question.WrongAnswer1,
+                                WrongAnswer2 = question.WrongAnswer2,
+                                WrongAnswer3 = question.WrongAnswer3
+                            };
+                            uow.WordDefinitionRepository.Insert(word);
+                            break;
+                        
                         default: throw new ValidationException("You cannot add question!");
 
                     }
@@ -113,7 +186,38 @@ namespace Se7enQ.Core
             }
         }
 
-       
+        public void AddQuestionSynonym(QuestionModelSynonym question)
+        {
+            try
+            {
+                using (UnitOfWork uow = new UnitOfWork())
+                {
+                    if (question.Category.Equals("Synonyms or Antonyms"))
+                    {
+                        WordSynonym synonym = new WordSynonym
+                        {
+                            CorrectAnswer1 = question.CorrectAnswer1,
+                            CorrectAnswer2 = question.CorrectAnswer2,
+                            WrongAnswer1 = question.WrongAnswer1,
+                            WrongAnswer2 = question.WrongAnswer2
+                        };
+                        uow.WordSynonymsRepository.Insert(synonym);
+                    }
+                    uow.Save();
+                }
+            }
+            catch (Exception)
+            {
+                throw new ValidationException("Please correct format, synonyms.");
+            }
+
+        }
+
+
+
+
+
+
 
         #region private
         public DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek)

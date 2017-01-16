@@ -24,7 +24,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locatio
                 url: '/dashboard',
                 templateUrl: '/views/dashboard.html',
                 pageName: 'Dashboard',
-                requireLogin: true
+                requireLogin: true,
+                resolve: {
+                    method: function (dashboardService) {
+                        return dashboardService.GetUsers;
+                    }
+                }
             })
             .state('layout.calculations', {
                 controller: 'QuestionsController',
@@ -47,6 +52,42 @@ app.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locatio
                 resolve: {
                     method: function (questionsService) {
                         return questionsService.getKnowledge;
+                    }
+                }
+            })
+            .state('layout.logicArray', {
+                controller: 'QuestionsController',
+                url: '/logicArray',
+                templateUrl: '/views/questions.html',
+                pageName: 'Logic Array',
+                requireLogin: true,
+                resolve: {
+                    method: function (questionsService) {
+                        return questionsService.getLogicArray;
+                    }
+                }
+            })
+            .state('layout.wordDefinition', {
+                controller: 'QuestionsController',
+                url: '/wordDefinition',
+                templateUrl: '/views/questions.html',
+                pageName: 'Word Definition',
+                requireLogin: true,
+                resolve: {
+                    method: function (questionsService) {
+                        return questionsService.getWordDefinition;
+                    }
+                }
+            })
+            .state('layout.synonym', {
+                controller: 'QuestionsController',
+                url: '/synonym',
+                templateUrl: '/views/questions.html',
+                pageName: 'Synonyms or Antonyms',
+                requireLogin: true,
+                resolve: {
+                    method: function (questionsService) {
+                        return questionsService.getSynonym;
                     }
                 }
             })

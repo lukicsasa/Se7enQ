@@ -211,3 +211,10 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /Se7enQ.Sql/Se7enQ.Sql.jfm
+*.js
+*.css
+*.html
+*.json
+*.defaults
+/Se7enQ.CMS/Web.config
+*.config

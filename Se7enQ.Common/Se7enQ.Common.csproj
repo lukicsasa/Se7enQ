@@ -46,6 +46,8 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\Admin\QuestionModel.cs" />
+    <Compile Include="Models\Admin\QuestionModelSynonym.cs" />
+    <Compile Include="Models\Admin\UserModelDashboard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
