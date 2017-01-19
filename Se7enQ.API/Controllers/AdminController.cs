@@ -158,6 +158,20 @@ namespace Se7enQ.API.Controllers
 
         [TokenAuthorize]
         [HttpPost]
+        public void EditUser(UserModelDashboard user)
+        {
+            AdminManager.EditUser(user);
+        }
+
+        [TokenAuthorize]
+        [HttpPost]
+        public void ChangePassword(int id, String newPassword)
+        {
+            AdminManager.ChangePassword(id, newPassword);
+        }
+
+        [TokenAuthorize]
+        [HttpPost]
         public void DeleteQuestion(int id, string category)
         {
             AdminManager.DeleteQuestion(id, category);

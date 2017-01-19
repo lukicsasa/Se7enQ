@@ -136,6 +136,38 @@ namespace Se7enQ.Core
             }
         }
 
+        public void EditUser(UserModelDashboard userEdit)
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                User user = uow.UserRepository.GetById(userEdit.Id);
+                user.FirstName = userEdit.FirstName;
+                user.LastName = userEdit.LastName;
+                user.Email = userEdit.Email;
+                user.Username = userEdit.Username;
+
+                uow.UserRepository.Update(user);
+
+                uow.Save();
+            }
+        }
+
+        public void ChangePassword(int id, string newPassword)
+        {
+            using(UnitOfWork uow = new UnitOfWork())
+            {
+                User user = uow.UserRepository.GetById(id);
+
+                newPassword = PasswordHelper.CreateHash(newPassword);
+
+                user.Password = newPassword;
+
+                uow.UserRepository.Update(user);
+
+                uow.Save();
+            }
+        }
+
 
 
         public void AddQuestion(QuestionModel question)
@@ -204,7 +236,7 @@ namespace Se7enQ.Core
             }
         }
 
-       
+        
 
         public void AddQuestionSynonym(QuestionModelSynonym question)
         {
